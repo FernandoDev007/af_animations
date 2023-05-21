@@ -1,17 +1,38 @@
 part of '../af_animations.dart';
 
 
+/// {@template AfWidgets_AfAnimatedClipRRect}
+/// The animated version of the ```ClipRRect``` widget,
+/// specifying a borderRadius and using ```AfAnimations.update```, will animate the change.
+/// 
+/// Creates a rounded-rectangular clip.
+///
+/// The borderRadius defaults to BorderRadius.zero, i.e. a rectangle with
+/// right-angled corners.
+///
+/// If clipper is non-null, then borderRadius is ignored.
+///
+/// The clipBehavior argument must not be null. If clipBehavior is
+/// Clip.none, no clipping will be applied.
+/// 
+/// ### Recommendations:
+/// 
+/// - It is recommended to replace the use of AfAnimatedClipRRect with AfAnimatedContainer.
+/// In many cases, that's what you will need, and it's more optimized.
+/// AfAnimatedClipRRect exists because it can be used in very specific cases,
+/// but this version of ClipRRect follows good practices.
+/// - I do not recommend using Clip.antiAliasWithSaveLayer.
+/// According to the Flutter documentation, it can be expensive to use.
+/// Now, imagine animating something like this. However, the decision is up to you.
+/// 
+/// {@endtemplate}
+/// {@macro AfWidgets_howToUse}
+/// 
+/// All AfWidgets
+/// {@macro AfWidgets_all}
 class AfAnimatedClipRRect extends StatefulWidget {
 
-  final String id;
-  final BorderRadius Function() borderRadius;
-  final Duration? duration;
-  final CustomClipper<RRect>? clipper;
-  final Curve? curve;
-  final Clip clipBehavior;
-  final VoidCallback? onEnd;
-  final Widget child;
-
+  /// {@macro AfWidgets_AfAnimatedClipRRect}
   const AfAnimatedClipRRect({
     super.key,
     this.id = "",
@@ -24,6 +45,41 @@ class AfAnimatedClipRRect extends StatefulWidget {
     required this.child,
   });
 
+  /// {@macro AfWidgets_id}
+  final String id;
+
+  /// {@macro AfWidgets_duration}
+  final Duration? duration;
+
+  /// {@macro AfWidgets_curve}
+  final Curve? curve;
+
+  /// {@macro AfAnimations_onEnd}
+  final VoidCallback? onEnd;
+
+  /// The widget below this widget in the tree.
+  ///
+  /// {@macro flutter.widgets.ProxyWidget.child}
+  final Widget child;
+
+  /// The border radius of the rounded corners.
+  ///
+  /// Values are clamped so that horizontal and vertical radii sums do not
+  /// exceed width/height.
+  ///
+  /// This value is ignored if [clipper] is non-null.}
+  /// 
+  /// {@macro AfWidgets_whyFunction}
+  final BorderRadius Function() borderRadius;
+
+  /// If non-null, determines which clip to use.
+  final CustomClipper<RRect>? clipper;
+
+  /// {@macro flutter.rendering.ClipRectLayer.clipBehavior}
+  ///
+  /// Defaults to [Clip.antiAlias].
+  final Clip clipBehavior;
+
   @override
   State<AfAnimatedClipRRect> createState() => _AfAnimatedClipRRectState();
 
@@ -31,8 +87,10 @@ class AfAnimatedClipRRect extends StatefulWidget {
 
 class _AfAnimatedClipRRectState extends State<AfAnimatedClipRRect> {
 
+  /// Used only for AfWidgets
+  /// {@macro AfWidgets_all}
   late _AfAnimationsWidgetsState state;
-  late BorderRadius borderRadius;
+  late BorderRadius _borderRadius;
 
   @override
   void initState() {
@@ -42,16 +100,14 @@ class _AfAnimatedClipRRectState extends State<AfAnimatedClipRRect> {
         uniqueId: "AfAnimatedClipRRect-I${widget.id}${AfAnimations._getIdentifier}",
         mounted: () => mounted,
         update: () {
-          if (mounted) {
-            borderRadius = widget.borderRadius();
-            setState(() {});
-          }
+          _borderRadius = widget.borderRadius();
+          setState(() {});
         },
       );
 
       AfAnimations._subscription(context, state);
     }
-    borderRadius = widget.borderRadius();
+    _borderRadius = widget.borderRadius();
     super.initState();
   }
 
@@ -65,10 +121,8 @@ class _AfAnimatedClipRRectState extends State<AfAnimatedClipRRect> {
         uniqueId: "AfAnimatedClipRRect-I${widget.id}${AfAnimations._getIdentifier}",
         mounted: () => mounted,
         update: () {
-          if (mounted) {
-            borderRadius = widget.borderRadius();
-            setState(() {});
-          }
+          _borderRadius = widget.borderRadius();
+          setState(() {});
         },
       );
 
@@ -82,7 +136,7 @@ class _AfAnimatedClipRRectState extends State<AfAnimatedClipRRect> {
     return _AfAnimatedClipRRect(
       duration: widget.duration ?? AfAnimations.getDuration(context),
       curve: widget.curve ?? AfAnimations.getCurve(context),
-      borderRadius: borderRadius,
+      borderRadius: _borderRadius,
       clipBehavior: widget.clipBehavior,
       clipper: widget.clipper,
       onEnd: () {
@@ -97,12 +151,8 @@ class _AfAnimatedClipRRectState extends State<AfAnimatedClipRRect> {
 
 
 
+/// Used exclusively for ```AfAnimatedClipRRect```
 class _AfAnimatedClipRRect extends ImplicitlyAnimatedWidget {
-
-  final BorderRadius borderRadius;
-  final CustomClipper<RRect>? clipper;
-  final Clip clipBehavior;
-  final Widget child;
 
   const _AfAnimatedClipRRect({
     Key? key,
@@ -119,6 +169,29 @@ class _AfAnimatedClipRRect extends ImplicitlyAnimatedWidget {
     duration: duration,
     onEnd: onEnd
   );
+
+  /// The widget below this widget in the tree.
+  ///
+  /// {@macro flutter.widgets.ProxyWidget.child}
+  final Widget child;
+
+  /// The border radius of the rounded corners.
+  ///
+  /// Values are clamped so that horizontal and vertical radii sums do not
+  /// exceed width/height.
+  ///
+  /// This value is ignored if [clipper] is non-null.}
+  /// 
+  /// {@macro AfWidgets_whyFunction}
+  final BorderRadius borderRadius;
+
+  /// If non-null, determines which clip to use.
+  final CustomClipper<RRect>? clipper;
+
+  /// {@macro flutter.rendering.ClipRectLayer.clipBehavior}
+  ///
+  /// Defaults to [Clip.antiAlias].
+  final Clip clipBehavior;
 
   @override
   __AfAnimatedClipRRectState createState() => __AfAnimatedClipRRectState();
@@ -147,8 +220,6 @@ class __AfAnimatedClipRRectState extends AnimatedWidgetBaseState<_AfAnimatedClip
 
   @override
   Widget build(BuildContext context) {
-    final Animation<double> animation = this.animation;
-
     return ClipRRect(
       borderRadius: _borderRadiusTween?.evaluate(animation),
       clipBehavior: widget.clipBehavior,

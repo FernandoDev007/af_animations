@@ -1,3 +1,8 @@
+## [0.1.2]
+
+- Fix pub score
+- Documentation joined the chat (Documentation added)
+
 ## [0.1.0] The start...
 
 - Added AfAnimations

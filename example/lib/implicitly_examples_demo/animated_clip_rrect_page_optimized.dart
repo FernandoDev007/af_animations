@@ -89,7 +89,10 @@ class _AfAnimatedClipRRectPageOptimizedState extends State<AfAnimatedClipRRectPa
                     }
                     AfAnimations.update(context, ids: ["AfAnimatedClipRRect Optimized Demo"]);
                   },
-                  child: const Text("  Animate  ").showRepaint(context),
+                  child: const Padding(
+                    padding: EdgeInsets.all(3.0),
+                    child: Text(" Animate "),
+                  ).showRepaint(context),
                 ),
               ).showRepaint(context),
 
