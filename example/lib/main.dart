@@ -45,8 +45,7 @@ class _MyAppState extends State<MyApp> {
         },
         scrollBehavior: const ScrollBehavior().copyWith(
           dragDevices: PointerDeviceKind.values.toSet(),
-          overscroll: false,
-          scrollbars: false,
+          overscroll: false, scrollbars: false,
         ),
       ),
     );

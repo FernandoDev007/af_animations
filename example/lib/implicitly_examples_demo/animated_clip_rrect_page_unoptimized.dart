@@ -48,7 +48,10 @@ class _AfAnimatedClipRRectPageUnoptimizedState extends State<AfAnimatedClipRRect
       appBar: PreferredSize(
         preferredSize: Size(MediaQuery.of(context).size.width, kToolbarHeight),
         child: AppBar(
-          title: const Text(' AfAnimatedClipRRect Demo ').showRepaint(context),
+          title: const Padding(
+            padding: EdgeInsets.all(3.0),
+            child: Text(" AfAnimatedClipRRect Demo "),
+          ).showRepaint(context),
           centerTitle: true,
           leading: IconButton(
             onPressed: () => Navigator.of(context).pop(),
@@ -115,7 +118,10 @@ class _AfAnimatedClipRRectPageUnoptimizedState extends State<AfAnimatedClipRRect
                       controller.forward();
                     }
                   },
-                  child: const Text("  Animate  ").showRepaint(context),
+                  child: const Padding(
+                    padding: EdgeInsets.all(3.0),
+                    child: Text(" Animate "),
+                  ).showRepaint(context),
                 ),
               ).showRepaint(context),
 

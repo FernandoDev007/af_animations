@@ -1,8 +1,10 @@
 part of '../af_animations.dart';
 
 
+/// Extensions that will be used in AfWidgets, although you can also use them.
 extension AfWidgetsExtension on Widget {
 
+  /// {@macro AfAnimations_showRepaint}
   Widget showRepaint(BuildContext context) {
     if (AfAnimations.isShowRepaint(context) ?? true) {
       List<MaterialColor> colors = Colors.primaries;
