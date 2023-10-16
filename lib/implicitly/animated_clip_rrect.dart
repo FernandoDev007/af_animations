@@ -24,8 +24,8 @@ part of '../af_animations.dart';
 /// - I do not recommend using Clip.antiAliasWithSaveLayer.
 /// According to the Flutter documentation, it can be expensive to use.
 /// Now, imagine animating something like this. However, the decision is up to you.
-/// 
 /// {@endtemplate}
+///
 /// {@macro AfWidgets_howToUse}
 /// 
 /// All AfWidgets
@@ -35,6 +35,7 @@ class AfAnimatedClipRRect extends StatefulWidget {
   /// {@macro AfWidgets_AfAnimatedClipRRect}
   const AfAnimatedClipRRect({
     super.key,
+    this.controller,
     this.id = "",
     required this.borderRadius,
     this.clipBehavior = Clip.antiAlias,
@@ -42,8 +43,11 @@ class AfAnimatedClipRRect extends StatefulWidget {
     this.duration,
     this.curve,
     this.onEnd,
-    required this.child,
+    this.child,
   });
+
+  /// {@macro AfAnimationsController}
+  final AfAnimationsController? controller;
 
   /// {@macro AfWidgets_id}
   final String id;
@@ -60,7 +64,7 @@ class AfAnimatedClipRRect extends StatefulWidget {
   /// The widget below this widget in the tree.
   ///
   /// {@macro flutter.widgets.ProxyWidget.child}
-  final Widget child;
+  final Widget? child;
 
   /// The border radius of the rounded corners.
   ///
@@ -85,55 +89,25 @@ class AfAnimatedClipRRect extends StatefulWidget {
 
 }
 
-class _AfAnimatedClipRRectState extends State<AfAnimatedClipRRect> {
+class _AfAnimatedClipRRectState extends _AfWidget<AfAnimatedClipRRect> {
 
-  /// Used only for AfWidgets
-  /// {@macro AfWidgets_all}
-  late _AfAnimationsWidgetsState state;
   late BorderRadius _borderRadius;
 
   @override
-  void initState() {
-    if (AfAnimations.existsAncestor(context)) {
-      state = _AfAnimationsWidgetsState(
-        id: widget.id,
-        uniqueId: "AfAnimatedClipRRect-I${widget.id}${AfAnimations._getIdentifier}",
-        mounted: () => mounted,
-        update: () {
-          _borderRadius = widget.borderRadius();
-          setState(() {});
-        },
-      );
-
-      AfAnimations._subscription(context, state);
-    }
-    _borderRadius = widget.borderRadius();
-    super.initState();
-  }
+  String get id => widget.id;
 
   @override
-  void didUpdateWidget(covariant AfAnimatedClipRRect oldWidget) {
-    if (AfAnimations.existsAncestor(context) && mounted) {
-      AfAnimations._unsubscribe(context, state);
+  AfAnimationsController? get controller => widget.controller;
 
-      state = _AfAnimationsWidgetsState(
-        id: widget.id,
-        uniqueId: "AfAnimatedClipRRect-I${widget.id}${AfAnimations._getIdentifier}",
-        mounted: () => mounted,
-        update: () {
-          _borderRadius = widget.borderRadius();
-          setState(() {});
-        },
-      );
-
-      AfAnimations._subscription(context, state);
-    }
-    super.didUpdateWidget(oldWidget);
+  @override
+  void update() {
+    _borderRadius = widget.borderRadius();
   }
 
   @override
   Widget build(BuildContext context) {
     return _AfAnimatedClipRRect(
+      controller: controller,
       duration: widget.duration ?? AfAnimations.getDuration(context),
       curve: widget.curve ?? AfAnimations.getCurve(context),
       borderRadius: _borderRadius,
@@ -142,8 +116,9 @@ class _AfAnimatedClipRRectState extends State<AfAnimatedClipRRect> {
       onEnd: () {
         widget.onEnd?.call();
         AfAnimations.callOnEnd(context);
+        controller?.callOnEnd();
       },
-      child: widget.child,
+      child: widget.child ?? const SizedBox.shrink(),
     );
   }
 
@@ -154,8 +129,10 @@ class _AfAnimatedClipRRectState extends State<AfAnimatedClipRRect> {
 /// Used exclusively for ```AfAnimatedClipRRect```
 class _AfAnimatedClipRRect extends ImplicitlyAnimatedWidget {
 
+  /// Used exclusively for ```AfAnimatedClipRRect```
   const _AfAnimatedClipRRect({
     Key? key,
+    required this.controller,
     required this.borderRadius,
     required this.child,
     required this.clipBehavior,
@@ -169,6 +146,9 @@ class _AfAnimatedClipRRect extends ImplicitlyAnimatedWidget {
     duration: duration,
     onEnd: onEnd
   );
+
+  /// {@macro AfAnimationsController}
+  final AfAnimationsController? controller;
 
   /// The widget below this widget in the tree.
   ///
@@ -221,11 +201,11 @@ class __AfAnimatedClipRRectState extends AnimatedWidgetBaseState<_AfAnimatedClip
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-      borderRadius: _borderRadiusTween?.evaluate(animation),
+      borderRadius: _borderRadiusTween!.evaluate(animation)!,
       clipBehavior: widget.clipBehavior,
       clipper: widget.clipper,
       child: widget.child,
-    ).showRepaint(context);
+    ).afShowRepaint(context, controller: widget.controller);
   }
 
   @override

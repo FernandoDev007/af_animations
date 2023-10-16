@@ -31,9 +31,11 @@ class _HomePageState extends State<HomePage> {
 
               SizedBox(
                 width: MediaQuery.of(context).size.width * 0.6,
-                child: const ElevatedButton(
-                  onPressed: null, ///In progress
-                  child: Text("Value Animations")
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).pushNamed("/value_demo");
+                  },
+                  child: const Text("Value Animations")
                 ),
               ),
 
@@ -75,7 +77,7 @@ class _HomePageState extends State<HomePage> {
                 width: MediaQuery.of(context).size.width * 0.6,
                 child: const ElevatedButton(
                   onPressed: null, ///In progress
-                  child: Text("Other Widgets Animations")
+                  child: Text("Navigation Animations")
                 ),
               ),
 
@@ -83,9 +85,11 @@ class _HomePageState extends State<HomePage> {
 
               SizedBox(
                 width: MediaQuery.of(context).size.width * 0.6,
-                child: const ElevatedButton(
-                  onPressed: null, ///In progress
-                  child: Text("Navigation Animations")
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).pushNamed("/other_widgets_demo");
+                  },
+                  child: const Text("Other Widgets")
                 ),
               ),
 

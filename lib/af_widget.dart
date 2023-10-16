@@ -1,0 +1,76 @@
+part of 'af_animations.dart';
+
+
+/// All AfWidgets:
+/// {@macro AfWidgets_all}
+abstract class  _AfWidget<T extends StatefulWidget> extends State<T> {
+
+  /// Used only for AfWidgets
+  /// {@macro AfWidgets_all}
+  _AfWidgetState? state;
+
+  /// Check if there is an ancestor AfAnimations and perform an action based on that
+  /// {@macro AfAnimations_allGetters}
+  bool get existsAncestor => (AfAnimations.existsAncestor(context) || controller != null) && mounted;
+
+  /// {@macro AfWidgets_id}
+  String get id;
+
+  /// {@macro AfAnimationsController}
+  /// {@macro AfAnimationsController_examples}
+  /// {@macro AfAnimationsController_principalGetters}
+  /// {@macro AfAnimationsController_allGetters}
+  /// 
+  /// These functions will work in these AfWidgets
+  /// {@macro AfWidgets_all}
+  AfAnimationsController? get controller;
+
+  /// Set to update values
+  void update();
+
+
+  /// {@macro AfAnimations_subscription}
+  void subscription() {
+    state = _AfWidgetState(
+      id: id,
+      uniqueId: "${T.toString()}-I$id${AfAnimations._getIdentifier}",
+      mounted: () => mounted,
+      update: () {
+        update();
+        setState(() {});
+      },
+    );
+
+    if (controller != null) {
+      controller!._subscription(state!);
+    } else {
+      AfAnimations._subscription(context, state!);
+    }
+  }
+
+  /// {@macro AfAnimations_unsubscribe}
+  void unsubscribe() {
+    controller?._unsubscribe(state!);
+    AfAnimations._unsubscribe(context, state!);
+  }
+
+  @override
+  void initState() {
+    if (existsAncestor) {
+      subscription();
+      update();
+    }
+    super.initState();
+  }
+
+  @override
+  void didUpdateWidget(covariant T oldWidget) {
+    if (existsAncestor) {
+      unsubscribe();
+      subscription();
+    }
+    super.didUpdateWidget(oldWidget);
+  }
+
+}
+

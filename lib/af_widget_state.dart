@@ -1,7 +1,7 @@
 part of 'af_animations.dart';
 
 
-/// Each of the AfWidgets in this package internally uses _AfAnimationsWidgetsState
+/// Each of the AfWidgets in this package internally uses _AfWidgetState
 /// so that their ancestor can control their state, update them, and trigger actions accordingly.
 /// 
 /// In these AfWidgets, it is used:
@@ -9,8 +9,7 @@ part of 'af_animations.dart';
 /// ```dart
 /// · AfAnimatedClipRRect
 /// ```
-/// {@end-tool}
-/// New AfWidgets will be added in the future. Do you have an idea? You can suggest it to me or open a pull request
+/// New AfWidgets will be added in the future. Do you have an idea? You can suggest it to me or open a pull request :)
 /// {@endtemplate}
 /// 
 /// {@template AfWidgets_howToUse}
@@ -28,7 +27,6 @@ part of 'af_animations.dart';
 /// ),
 /// ...
 /// ```
-/// {@end-tool}
 /// 
 /// In order to animate the changes, first the value needs to be changed and updated
 /// ```dart
@@ -43,7 +41,6 @@ part of 'af_animations.dart';
 /// AfAnimations.update(context);
 /// ...
 /// ```
-/// {@end-tool}
 /// ### Specifying an Id:
 /// ```dart
 /// ...
@@ -58,7 +55,6 @@ part of 'af_animations.dart';
 /// ),
 /// ...
 /// ```
-/// {@end-tool}
 /// 
 /// In order to animate the changes, first the value needs to be changed and updated
 /// ```dart
@@ -73,7 +69,6 @@ part of 'af_animations.dart';
 /// AfAnimations.update(context, ids: ["size cover photo"]);
 /// ...
 /// ```
-/// {@end-tool}
 /// 
 /// As an additional note, you can update multiple AfWidgets
 /// at the same time by specifying their ids in the mentioned function.
@@ -91,7 +86,6 @@ part of 'af_animations.dart';
 /// );
 /// ...
 /// ```
-/// {@end-tool}
 /// I hope you were able to understand
 /// {@endtemplate}
 /// 
@@ -136,11 +130,11 @@ part of 'af_animations.dart';
 /// every time AfAnimations.update is used. If it is not used, it will not work.
 /// I recommend using ```() =>```.
 /// {@endtemplate}
-class _AfAnimationsWidgetsState {
+class _AfWidgetState {
 
   /// Used only for AfWidgets
   /// {@macro AfWidgets_all}
-  const _AfAnimationsWidgetsState({
+  const _AfWidgetState({
     required this.id,
     required this.uniqueId,
     required this.mounted,
@@ -160,12 +154,4 @@ class _AfAnimationsWidgetsState {
   final VoidCallback update;
 
 }
-
-
-// Next impl
-///abstract class _AfWidget<T extends StatefulWidget> extends State<T> {
-///
-///  late _AfAnimationsWidgetsState state;
-///
-///}
 

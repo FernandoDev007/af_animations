@@ -1,3 +1,8 @@
+## [0.1.5]
+
+- Renaming of private classes
+- Added AfAnimationsController
+
 ## [0.1.2]
 
 - Fix pub score

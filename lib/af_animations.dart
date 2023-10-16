@@ -6,9 +6,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/foundation.dart';
 
-part 'af_animations_widgets_state.dart';
-part 'implicitly/animated_clip_rrect.dart';
+part 'af_widget.dart';
+part 'af_widget_state.dart';
+part 'af_animations_controller.dart';
+
 part 'extensions/af_widgets_extension.dart';
+
+part 'implicitly/animated_clip_rrect.dart';
+
+part 'other/builder.dart';
+
+part 'value/animated_value.dart';
 
 
 /// {@template AfAnimations}
@@ -16,8 +24,8 @@ part 'extensions/af_widgets_extension.dart';
 /// You can retrieve the specified data here. Below this, you can see how it is done.
 /// 
 /// All the documentation was created with the help of GPT-4.
-/// If you find any errors in the translation, please let me know by starting a new discussion.
-/// https://github.com/FernandoDev007/af_animations/issues
+/// If you find any errors, please let me know by starting a new discussion or PR :)
+/// https://github.com/FernandoDev007/af_animations
 /// {@endtemplate}
 /// 
 /// {@template AfAnimations_examples}
@@ -50,8 +58,8 @@ part 'extensions/af_widgets_extension.dart';
 /// }
 /// 
 /// ```
-/// {@end-tool}
 /// {@endtemplate}
+/// 
 /// {@template AfAnimations_principalGetters}
 /// Afterwards, in your project, you will be able to retrieve the globally specified values as follows:
 /// ```dart
@@ -59,8 +67,8 @@ part 'extensions/af_widgets_extension.dart';
 /// Curve globalCurve = AfAnimations.getCurve(context);
 /// bool? showRepaint = AfAnimations.isShowRepaint(context);
 /// ```
-/// {@end-tool}
 /// {@endtemplate}
+/// 
 /// {@template AfAnimations_allGetters}
 /// You can also use these others:
 /// ```dart
@@ -72,11 +80,14 @@ part 'extensions/af_widgets_extension.dart';
 /// /// You specify the IDs to update, and it will update the widget entirely in an optimal way.
 /// AfAnimations.update(context, ids: ["updateIcon", "updateValue", "Anothers"]);
 /// ```
-/// {@end-tool}
 /// {@endtemplate}
 /// 
 /// These functions will work in these AfWidgets
 /// {@macro AfWidgets_all}
+/// 
+///  
+/// ## Alternative without context to AfAnimations: AfAnimationsController
+/// {@macro AfAnimationsController}
 class AfAnimations extends StatefulWidget {
 
   /// {@macro AfAnimations}
@@ -134,7 +145,7 @@ class AfAnimations extends StatefulWidget {
   final bool showRepaint;
 
 
-  /// Unique identifier for each _AfAnimationsWidgetsState used.
+  /// Unique identifier for each _AfWidgetState used.
   static String get _getIdentifier => "K${UniqueKey()}D${DateTime.now().millisecondsSinceEpoch}";
   /// Default variable in case the animation duration is not specified.
   static Duration get _defaultDuration => const Duration(milliseconds: 300);
@@ -173,40 +184,56 @@ class AfAnimations extends StatefulWidget {
   /// {@macro AfAnimations_allGetters}
   static void update(BuildContext context, {List<String> ids = const <String>[""]}) {
     if (!existsAncestor(context)) {
-      throw FlutterError("AfAnimations Error - No ancestor was found, wrap MaterialApp or another parent (As Scaffold) with AfAnimations");
+      throw FlutterError(
+        "AfAnimations Error - No ancestor was found, wrap MaterialApp "
+        "or another parent (As Scaffold) with AfAnimations "
+        "(To be able to use AfAnimations.update) "
+        "or you can replace it using AfAnimationsController, which doesn't require context to function"
+      );
     }
 
-    context.findAncestorStateOfType<_AfAnimationsState>()!._afAnimationsWidgetsStates.where(
-      (animationState) => ids.any((id) => animationState.id == id)
-    ).forEach((animationState) => animationState.update());
+    List<_AfWidgetState> afWidgetStates =
+      context.findAncestorStateOfType<_AfAnimationsState>()!.afWidgetStates.toList();
+
+    for (_AfWidgetState afWidget in afWidgetStates) {
+      if (ids.any((id) => afWidget.id == id)) {
+        if (afWidget.mounted()) {
+          afWidget.update();
+        }
+      }
+    }
   }
 
 
 
-  /// Subscribe a _AfAnimationsWidgetsState to listen for a possible [AfAnimations.update]
+  /// {@template AfAnimations_subscription}
+  /// Subscribe a _AfWidgetState to listen for a possible [AfAnimations.update]
   /// to update the widget and make the respective changes
-  static void _subscription(BuildContext context, _AfAnimationsWidgetsState state) {
+  /// {@endtemplate}
+  static void _subscription(BuildContext context, _AfWidgetState state) {
     if (!existsAncestor(context)) return;
 
     _unsubscribeOnDisposedStates(context);
-    context.findAncestorStateOfType<_AfAnimationsState>()!._afAnimationsWidgetsStates.add(state);
+    context.findAncestorStateOfType<_AfAnimationsState>()!.afWidgetStates.add(state);
   }
 
-  /// Cancel the subscription of a _AfAnimationsWidgetsState when it's not possible to listen
+  /// {@template AfAnimations_unsubscribe}
+  /// Cancel the subscription of a _AfWidgetState when it's not possible to listen
   /// for [AfAnimations.update], thus freeing up some resources
-  static void _unsubscribe(BuildContext context, _AfAnimationsWidgetsState state) {
+  /// {@endtemplate}
+  static void _unsubscribe(BuildContext context, _AfWidgetState state) {
     if (!existsAncestor(context)) return;
 
-    context.findAncestorStateOfType<_AfAnimationsState>()!._afAnimationsWidgetsStates.removeWhere(
-      (animationState) => animationState.uniqueId == state.uniqueId
+    context.findAncestorStateOfType<_AfAnimationsState>()!.afWidgetStates.removeWhere(
+      (afWidget) => afWidget.uniqueId == state.uniqueId
     );
   }
 
-  /// Unsubscribe all _AfAnimationsWidgetsState for AfWidgets that are no longer displayed
+  /// Unsubscribe all _AfWidgetState for AfWidgets that are no longer displayed
   /// on the current screen. If they become visible again, they will be subscribed again.
   static void _unsubscribeOnDisposedStates(BuildContext context) {
-    context.findAncestorStateOfType<_AfAnimationsState>()!._afAnimationsWidgetsStates.removeWhere(
-      (animationState) => !animationState.mounted(),
+    context.findAncestorStateOfType<_AfAnimationsState>()!.afWidgetStates.removeWhere(
+      (afWidget) => !afWidget.mounted(),
     );
   }
 
@@ -217,8 +244,8 @@ class AfAnimations extends StatefulWidget {
 
 class _AfAnimationsState extends State<AfAnimations> {
 
-  /// The list where all _AfAnimationsWidgetsState are stored to be updated later with AfAnimations.update.
-  final List<_AfAnimationsWidgetsState> _afAnimationsWidgetsStates = <_AfAnimationsWidgetsState>[];
+  /// The list where all _AfWidgetState are stored to be updated later with AfAnimations.update.
+  List<_AfWidgetState> afWidgetStates = <_AfWidgetState>[];
 
   @override
   Widget build(BuildContext context) {

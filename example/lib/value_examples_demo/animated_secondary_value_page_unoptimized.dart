@@ -1,21 +1,26 @@
+import 'dart:math';
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 
 import 'package:af_animations/af_animations.dart';
 
 
-class AfAnimatedClipRRectPageUnoptimized extends StatefulWidget {
-  const AfAnimatedClipRRectPageUnoptimized({
+class AfAnimatedSecondaryValuePageUnoptimized extends StatefulWidget {
+  const AfAnimatedSecondaryValuePageUnoptimized({
     super.key,
   });
 
   @override
-  State<AfAnimatedClipRRectPageUnoptimized> createState() => _AfAnimatedClipRRectPageUnoptimizedState();
+  State<AfAnimatedSecondaryValuePageUnoptimized> createState() => _AfAnimatedSecondaryValuePageUnoptimizedState();
 }
 
-class _AfAnimatedClipRRectPageUnoptimizedState extends State<AfAnimatedClipRRectPageUnoptimized> with SingleTickerProviderStateMixin {
+class _AfAnimatedSecondaryValuePageUnoptimizedState extends State<AfAnimatedSecondaryValuePageUnoptimized> with TickerProviderStateMixin {
 
   late AnimationController controller;
+  late AnimationController controller1;
   late Animation<double> animation;
+  late Animation<double> animation1;
 
   @override
   void initState() {
@@ -23,14 +28,24 @@ class _AfAnimatedClipRRectPageUnoptimizedState extends State<AfAnimatedClipRRect
       vsync: this,
       duration: AfAnimations.getDuration(context),
     );
-    animation = Tween<double>(begin: 30.0, end: 80.0).animate(
+    controller1 = AnimationController(
+      vsync: this,
+      duration: AfAnimations.getDuration(context),
+    );
+    animation = Tween<double>(begin: 0.0, end: 1.0).animate(
       CurvedAnimation(parent: controller, curve: AfAnimations.getCurve(context))
+    );
+    animation1 = Tween<double>(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(parent: controller1, curve: AfAnimations.getCurve(context))
     );
 
     ///Here is the cause of this bad practice, it could be solved by using AnimatedBuilder,
     ///but the advantage of AfAnimations is that you don't have to think about this,
     ///you can create animations more easily and optimally
     controller.addListener(() {
+      setState(() {});
+    });
+    controller1.addListener(() {
       setState(() {});
     });
     super.initState();
@@ -50,7 +65,7 @@ class _AfAnimatedClipRRectPageUnoptimizedState extends State<AfAnimatedClipRRect
         child: AppBar(
           title: const Padding(
             padding: EdgeInsets.all(3.0),
-            child: Text(" AfAnimatedClipRRect Demo "),
+            child: Text(" AfAnimatedValue Demo "),
           ).afShowRepaint(context),
           centerTitle: true,
           leading: IconButton(
@@ -68,39 +83,44 @@ class _AfAnimatedClipRRectPageUnoptimizedState extends State<AfAnimatedClipRRect
               const Padding(
                 padding: EdgeInsets.all(4.0),
                 child: Text(
-                  " Without using AfAnimatedClipRRect, very poor animation practices are employed in this animation. ",
+                  " Without using AfAnimatedValue, very poor animation practices are employed in this animation. ",
                   textAlign: TextAlign.center,
                 ),
               ).afShowRepaint(context),
 
               const SizedBox(height: 20).afShowRepaint(context),
 
-              ClipRRect(
-                borderRadius: BorderRadius.circular(animation.value),
-                child: GestureDetector(
-                  onTap: () {
-                    if (controller.status == AnimationStatus.forward) {
-                      controller.reverse();
-                    } else {
-                      controller.forward();
-                    }
-                  },
-                  child: Container(
-                    height: 170,
-                    width: 170,
-                    color: Colors.red,
-                    child: Center(
+              GestureDetector(
+                onTap: () {
+                  if (controller.status == AnimationStatus.completed
+                    || controller1.status == AnimationStatus.forward) {
+                    controller.reverse().then((value) {
+                      controller1.reverse();
+                    });
+                  } else {
+                    controller.forward().then((value) {
+                      controller1.forward();
+                    });
+                  }
+                },
+                child: Container(
+                  height: lerpDouble(170, 270, animation.value),
+                  width: lerpDouble(170, min(MediaQuery.of(context).size.width, 270), animation.value),
+                  color: Colors.red,
+                  child: Center(
+                    child: Padding(
+                      padding: const EdgeInsets.all(10.0),
                       child: Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: const Padding(
-                          padding: EdgeInsets.all(8.0),
-                          child: Text(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Transform.scale(
+                          scale: animation1.value + 1,
+                          child: const Text(
                             "Example content of the widget",
-                            style: TextStyle(color: Colors.white),
+                            style: TextStyle(color: Colors.black),
                             textAlign: TextAlign.center,
                           ),
-                        ).afShowRepaint(context),
-                      ),
+                        ),
+                      ).afShowRepaint(context),
                     ),
                   ),
                 ),
@@ -112,10 +132,15 @@ class _AfAnimatedClipRRectPageUnoptimizedState extends State<AfAnimatedClipRRect
                 width: MediaQuery.of(context).size.width * 0.6,
                 child: ElevatedButton(
                   onPressed: () {
-                    if (controller.status == AnimationStatus.completed) {
-                      controller.reverse();
+                    if (controller.status == AnimationStatus.completed
+                      || controller1.status == AnimationStatus.forward) {
+                      controller.reverse().then((value) {
+                        controller1.reverse();
+                      });
                     } else {
-                      controller.forward();
+                      controller.forward().then((value) {
+                        controller1.forward();
+                      });
                     }
                   },
                   child: const Padding(
