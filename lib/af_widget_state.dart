@@ -144,10 +144,10 @@ class _AfWidgetState {
   /// Specified identifier
   final String id;
 
-  /// Internal identifier to control the state of each AfWidget"
+  /// Internal identifier to control the state of each AfWidget
   final String uniqueId;
 
-  /// Determine if the AfWidget is still visible on the screen
+  /// It is determined whether the AfWidget is still in the application's tree or has already been disposed
   final bool Function() mounted;
 
   /// Update the AfWidget from its ancestor

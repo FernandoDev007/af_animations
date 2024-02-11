@@ -36,6 +36,9 @@ class _ValuePageState extends State<ValuePage> {
                   onPressed: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(builder: (context) => SelectExampleTypePage(
+                        title: "AfAnimatedValue Demo",
+                        description: "Animating a single value by interpolating to the new value, "
+                          "a very dynamic animation.",
                         titleUnoptimizeVersion: "Without using AfAnimatedValue",
                         onTapUnoptimizeVersion: () {
                           Navigator.of(context).pushNamed("/animated_value_page_unoptimized");
@@ -44,7 +47,6 @@ class _ValuePageState extends State<ValuePage> {
                         onTapOptimizedVersion: () {
                           Navigator.of(context).pushNamed("/animated_value_page_optimized");
                         },
-                        title: "AfAnimatedValue Demo"
                       ))
                     );
                   },
@@ -69,6 +71,16 @@ class _ValuePageState extends State<ValuePage> {
                 child: const ElevatedButton(
                   onPressed: null, ///In progress
                   child: Text("AfAnimatedTerceryValue")
+                ),
+              ),
+
+              const SizedBox(height: 15),
+
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.6,
+                child: const ElevatedButton(
+                  onPressed: null, ///In progress
+                  child: Text("AfAnimatedColor")
                 ),
               ),
 

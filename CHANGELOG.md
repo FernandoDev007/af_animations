@@ -1,3 +1,12 @@
+## [0.3.0] Phoenix...
+
+- Added AfBuilder
+- Added AfAnimatedValue
+- Added examples of the latest implementations
+- Fix pub score
+- Improved the ease with which new AfWidgets are added
+- Changed the name from AfAnimationsController to AfController
+
 ## [0.1.5]
 
 - Renaming of private classes

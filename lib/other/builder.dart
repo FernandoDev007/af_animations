@@ -2,9 +2,9 @@ part of '../af_animations.dart';
 
 
 /// {@template AfWidgets_AfBuilder}
-/// The 'Builder' version, which has 'AfWidget' implemented inside,
-/// updates the widget easily and simply using 'AfAnimations.update'
-/// or by using 'AfAnimationsController' and 'controller.update,'
+/// The ```Builder``` version, which has ```AfWidget``` implemented inside,
+/// updates the widget easily and using ```AfAnimations.update```
+/// or by using ```AfController``` and ```controller.update```,
 /// whichever is easier for you...
 /// {@endtemplate}
 /// 
@@ -23,8 +23,8 @@ class AfBuilder extends StatefulWidget {
     required this.builder,
   });
 
-  /// {@macro AfAnimationsController}
-  final AfAnimationsController? controller;
+  /// {@macro AfController}
+  final AfController? controller;
 
   /// {@macro AfWidgets_id}
   final String id;
@@ -57,7 +57,7 @@ class _AfBuilderState extends _AfWidget<AfBuilder> {
   String get id => widget.id;
 
   @override
-  AfAnimationsController? get controller => widget.controller;
+  AfController? get controller => widget.controller;
 
   @override
   void update() {}

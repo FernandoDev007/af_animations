@@ -3,7 +3,8 @@ part of '../af_animations.dart';
 
 /// {@template AfWidgets_AfAnimatedValue}
 /// Animating a single value by interpolating to the new value,
-/// a very dynamic animation widget.
+/// a very dynamic animation widget and using ```AfAnimations.update```
+/// or by using ```AfController``` and ```controller.update```, will animate the change.
 /// {@endtemplate}
 ///
 /// {@macro AfWidgets_howToUse}
@@ -25,8 +26,8 @@ class AfAnimatedValue extends StatefulWidget {
     this.child,
   });
 
-  /// {@macro AfAnimationsController}
-  final AfAnimationsController? controller;
+  /// {@macro AfController}
+  final AfController? controller;
 
   /// {@macro AfWidgets_id}
   final String id;
@@ -76,7 +77,7 @@ class _AfAnimatedValueState extends _AfWidget<AfAnimatedValue> {
   String get id => widget.id;
 
   @override
-  AfAnimationsController? get controller => widget.controller;
+  AfController? get controller => widget.controller;
 
   @override
   void update() {
@@ -124,8 +125,8 @@ class _AfAnimatedValue extends ImplicitlyAnimatedWidget {
     onEnd: onEnd
   );
 
-  /// {@macro AfAnimationsController}
-  final AfAnimationsController? controller;
+  /// {@macro AfController}
+  final AfController? controller;
 
   /// The value of the animation to update.
   final double value;

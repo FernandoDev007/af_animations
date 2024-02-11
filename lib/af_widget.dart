@@ -16,14 +16,14 @@ abstract class  _AfWidget<T extends StatefulWidget> extends State<T> {
   /// {@macro AfWidgets_id}
   String get id;
 
-  /// {@macro AfAnimationsController}
-  /// {@macro AfAnimationsController_examples}
-  /// {@macro AfAnimationsController_principalGetters}
-  /// {@macro AfAnimationsController_allGetters}
+  /// {@macro AfController}
+  /// {@macro AfController_examples}
+  /// {@macro AfController_principalGetters}
+  /// {@macro AfController_allGetters}
   /// 
   /// These functions will work in these AfWidgets
   /// {@macro AfWidgets_all}
-  AfAnimationsController? get controller;
+  AfController? get controller;
 
   /// Set to update values
   void update();
@@ -33,7 +33,7 @@ abstract class  _AfWidget<T extends StatefulWidget> extends State<T> {
   void subscription() {
     state = _AfWidgetState(
       id: id,
-      uniqueId: "${T.toString()}-I$id${AfAnimations._getIdentifier}",
+      uniqueId: "${T.toString()}-I$id-${AfAnimations._getIdentifier}",
       mounted: () => mounted,
       update: () {
         update();

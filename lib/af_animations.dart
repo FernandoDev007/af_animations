@@ -2,20 +2,16 @@ library af_animations;
 
 import 'dart:math';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter/foundation.dart';
 
+part 'af_controller.dart';
 part 'af_widget.dart';
 part 'af_widget_state.dart';
-part 'af_animations_controller.dart';
-
-part 'extensions/af_widgets_extension.dart';
-
+part 'extensions/widgets_extension.dart';
 part 'implicitly/animated_clip_rrect.dart';
-
 part 'other/builder.dart';
-
 part 'value/animated_value.dart';
 
 
@@ -85,9 +81,9 @@ part 'value/animated_value.dart';
 /// These functions will work in these AfWidgets
 /// {@macro AfWidgets_all}
 /// 
-///  
-/// ## Alternative without context to AfAnimations: AfAnimationsController
-/// {@macro AfAnimationsController}
+/// 
+/// ## Alternative without context to AfAnimations: AfController
+/// {@macro AfController}
 class AfAnimations extends StatefulWidget {
 
   /// {@macro AfAnimations}
@@ -188,7 +184,7 @@ class AfAnimations extends StatefulWidget {
         "AfAnimations Error - No ancestor was found, wrap MaterialApp "
         "or another parent (As Scaffold) with AfAnimations "
         "(To be able to use AfAnimations.update) "
-        "or you can replace it using AfAnimationsController, which doesn't require context to function"
+        "or you can replace it using AfController, which doesn't require context to function"
       );
     }
 

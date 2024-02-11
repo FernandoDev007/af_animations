@@ -3,7 +3,8 @@ part of '../af_animations.dart';
 
 /// {@template AfWidgets_AfAnimatedClipRRect}
 /// The animated version of the ```ClipRRect``` widget,
-/// specifying a borderRadius and using ```AfAnimations.update```, will animate the change.
+/// specifying a borderRadius and using ```AfAnimations.update```
+/// or by using ```AfController``` and ```controller.update```, will animate the change.
 /// 
 /// Creates a rounded-rectangular clip.
 ///
@@ -46,8 +47,8 @@ class AfAnimatedClipRRect extends StatefulWidget {
     this.child,
   });
 
-  /// {@macro AfAnimationsController}
-  final AfAnimationsController? controller;
+  /// {@macro AfController}
+  final AfController? controller;
 
   /// {@macro AfWidgets_id}
   final String id;
@@ -97,7 +98,7 @@ class _AfAnimatedClipRRectState extends _AfWidget<AfAnimatedClipRRect> {
   String get id => widget.id;
 
   @override
-  AfAnimationsController? get controller => widget.controller;
+  AfController? get controller => widget.controller;
 
   @override
   void update() {
@@ -147,8 +148,8 @@ class _AfAnimatedClipRRect extends ImplicitlyAnimatedWidget {
     onEnd: onEnd
   );
 
-  /// {@macro AfAnimationsController}
-  final AfAnimationsController? controller;
+  /// {@macro AfController}
+  final AfController? controller;
 
   /// The widget below this widget in the tree.
   ///

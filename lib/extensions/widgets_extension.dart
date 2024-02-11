@@ -7,7 +7,7 @@ extension AfWidgetsExtension on Widget {
   /// {@macro AfAnimations_showRepaint}
   Widget afShowRepaint(
     BuildContext context, {
-    AfAnimationsController? controller
+    AfController? controller
   }) {
     if (controller?.isShowRepaint() ?? AfAnimations.isShowRepaint(context) ?? true) {
       List<MaterialColor> colors = Colors.primaries;

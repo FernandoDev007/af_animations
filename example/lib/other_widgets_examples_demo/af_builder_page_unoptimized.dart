@@ -41,13 +41,31 @@ class _AfBuilderPageUnoptimizedState extends State<AfBuilderPageUnoptimized> wit
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text(
-              '   You have pushed the button this many times:   ',
-            ).afShowRepaint(context),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: const Text(
+                '   You have pushed the button this many times:   ',
+                textAlign: TextAlign.center,
+              ).afShowRepaint(context),
+            ),
+
+            const SizedBox(height: 10).afShowRepaint(context),
+
             Text(
               ' $_counter ',
               style: Theme.of(context).textTheme.headlineMedium,
             ).afShowRepaint(context),
+
+            const SizedBox(height: 20).afShowRepaint(context),
+
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: const Text(
+                " A color change is a widget rebuild, it may not seem like much, but in production applications, it's important to optimize everything. ",
+                textAlign: TextAlign.center,
+                textScaleFactor: 0.75,
+              ).afShowRepaint(context),
+            ),
           ],
         ).afShowRepaint(context),
       ),

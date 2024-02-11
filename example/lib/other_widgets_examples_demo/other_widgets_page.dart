@@ -36,6 +36,7 @@ class _OtherWidgetsPageState extends State<OtherWidgetsPage> {
                   onPressed: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(builder: (context) => SelectExampleTypePage(
+                        description: "The 'Builder' version, which has AfWidget implemented inside.",
                         titleUnoptimizeVersion: "Without using AfBuilder",
                         onTapUnoptimizeVersion: () {
                           Navigator.of(context).pushNamed("/builder_page_unoptimized");

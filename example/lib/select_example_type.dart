@@ -7,7 +7,7 @@ class SelectExampleTypePage extends StatefulWidget {
   final VoidCallback onTapOptimizedVersion;
   final String? titleOptimizeVersion;
   final String title;
-  final String? tip;
+  final String? description;
 
   const SelectExampleTypePage({
     super.key,
@@ -16,7 +16,7 @@ class SelectExampleTypePage extends StatefulWidget {
     required this.title,
     this.titleUnoptimizeVersion,
     this.titleOptimizeVersion,
-    this.tip,
+    required this.description,
   });
 
   @override
@@ -28,27 +28,38 @@ class _SelectExampleTypePageState extends State<SelectExampleTypePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size(MediaQuery.of(context).size.width, kToolbarHeight),
-        child: AppBar(
-          title: Text(widget.title),
-          centerTitle: true,
-        ),
+      appBar: AppBar(
+        title: Text(widget.title),
+        centerTitle: true,
       ),
       body: Center(
         child: SingleChildScrollView(
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
+              if (widget.description != null)
               const SizedBox(height: 20),
-
+    
+              if (widget.description != null)
+              Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: MediaQuery.of(context).size.width * 0.1,
+                ),
+                child: Text(
+                  widget.description!,
+                  textAlign: TextAlign.center
+                ),
+              ),
+    
+              const SizedBox(height: 20),
+    
               if (widget.onTapUnoptimizeVersion != null)
               SizedBox( 
                 width: MediaQuery.of(context).size.width * 0.6,
                 child: ElevatedButton(
                   onPressed: widget.onTapUnoptimizeVersion,
                   style: const ButtonStyle(
-                    backgroundColor: MaterialStatePropertyAll(Colors.red)
+                    backgroundColor: MaterialStatePropertyAll(Colors.white)
                   ),
                   child: Text(
                     widget.titleUnoptimizeVersion ?? "Unoptimized version",
@@ -56,10 +67,10 @@ class _SelectExampleTypePageState extends State<SelectExampleTypePage> {
                   )
                 ),
               ),
-
+    
               if (widget.onTapUnoptimizeVersion != null)
               const SizedBox(height: 15),
-
+    
               SizedBox( 
                 width: MediaQuery.of(context).size.width * 0.6,
                 child: ElevatedButton(
@@ -70,7 +81,7 @@ class _SelectExampleTypePageState extends State<SelectExampleTypePage> {
                   ),
                 ),
               ),
-
+    
               const SizedBox(height: 20),
             ],
           ),
