@@ -5,8 +5,11 @@ part of '../af_animations.dart';
 extension AfWidgetsExtension on Widget {
 
   /// {@macro AfAnimations_showRepaint}
-  Widget showRepaint(BuildContext context) {
-    if (AfAnimations.isShowRepaint(context) ?? true) {
+  Widget afShowRepaint(
+    BuildContext context, {
+    AfController? controller
+  }) {
+    if (controller?.isShowRepaint() ?? AfAnimations.isShowRepaint(context) ?? true) {
       List<MaterialColor> colors = Colors.primaries;
       Random random = Random();
 

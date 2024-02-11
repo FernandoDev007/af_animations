@@ -1,12 +1,12 @@
 name: af_animations
-description: Enjoy animations that are very easy to set up with great performance on all platforms.
-version: 0.1.2
+description: Create animations very easily, with high performance on all platforms.
+version: 0.3.0
 homepage: https://github.com/FernandoDev007
 repository: https://github.com/FernandoDev007/af_animations
 issue_tracker: https://github.com/FernandoDev007/af_animations/issues
 
 environment:
-  sdk: '>=2.19.6 <3.0.0'
+  sdk: ">=2.19.6 <3.0.0"
   flutter: ">=2.5.0"
 
 dependencies:

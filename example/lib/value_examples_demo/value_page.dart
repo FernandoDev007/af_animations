@@ -1,16 +1,17 @@
+import 'package:af_animations_example/select_example_type.dart';
 import 'package:flutter/material.dart';
 
 
-class HomePage extends StatefulWidget {
-  const HomePage({
+class ValuePage extends StatefulWidget {
+  const ValuePage({
     super.key,
   });
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<ValuePage> createState() => _ValuePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _ValuePageState extends State<ValuePage> {
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +19,7 @@ class _HomePageState extends State<HomePage> {
       appBar: PreferredSize(
         preferredSize: Size(MediaQuery.of(context).size.width, kToolbarHeight),
         child: AppBar(
-          title: const Text('Af Animations App Demo'),
+          title: const Text('Value Animations'),
           centerTitle: true,
         ),
       ),
@@ -33,21 +34,23 @@ class _HomePageState extends State<HomePage> {
                 width: MediaQuery.of(context).size.width * 0.6,
                 child: ElevatedButton(
                   onPressed: () {
-                    Navigator.of(context).pushNamed("/value_demo");
+                    Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => SelectExampleTypePage(
+                        title: "AfAnimatedValue Demo",
+                        description: "Animating a single value by interpolating to the new value, "
+                          "a very dynamic animation.",
+                        titleUnoptimizeVersion: "Without using AfAnimatedValue",
+                        onTapUnoptimizeVersion: () {
+                          Navigator.of(context).pushNamed("/animated_value_page_unoptimized");
+                        },
+                        titleOptimizeVersion: "Using AfAnimatedValue",
+                        onTapOptimizedVersion: () {
+                          Navigator.of(context).pushNamed("/animated_value_page_optimized");
+                        },
+                      ))
+                    );
                   },
-                  child: const Text("Value Animations")
-                ),
-              ),
-
-              const SizedBox(height: 15),
-
-              SizedBox(
-                width: MediaQuery.of(context).size.width * 0.6,
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.of(context).pushNamed("/implicitly_demo");
-                  },
-                  child: const Text("Implicitly Animations")
+                  child: const Text("AfAnimatedValue")
                 ),
               ),
 
@@ -57,7 +60,7 @@ class _HomePageState extends State<HomePage> {
                 width: MediaQuery.of(context).size.width * 0.6,
                 child: const ElevatedButton(
                   onPressed: null, ///In progress
-                  child: Text("Interval Animations")
+                  child: Text("AfAnimatedSecondaryValue")
                 ),
               ),
 
@@ -67,7 +70,7 @@ class _HomePageState extends State<HomePage> {
                 width: MediaQuery.of(context).size.width * 0.6,
                 child: const ElevatedButton(
                   onPressed: null, ///In progress
-                  child: Text("Simple Animations")
+                  child: Text("AfAnimatedTerceryValue")
                 ),
               ),
 
@@ -77,19 +80,7 @@ class _HomePageState extends State<HomePage> {
                 width: MediaQuery.of(context).size.width * 0.6,
                 child: const ElevatedButton(
                   onPressed: null, ///In progress
-                  child: Text("Navigation Animations")
-                ),
-              ),
-
-              const SizedBox(height: 25),
-
-              SizedBox(
-                width: MediaQuery.of(context).size.width * 0.6,
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.of(context).pushNamed("/other_widgets_demo");
-                  },
-                  child: const Text("Other Widgets")
+                  child: Text("AfAnimatedColor")
                 ),
               ),
 

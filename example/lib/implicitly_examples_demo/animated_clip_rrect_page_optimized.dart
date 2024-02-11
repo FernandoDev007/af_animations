@@ -22,13 +22,13 @@ class _AfAnimatedClipRRectPageOptimizedState extends State<AfAnimatedClipRRectPa
       appBar: PreferredSize(
         preferredSize: Size(MediaQuery.of(context).size.width, kToolbarHeight),
         child: AppBar(
-          title: const Text(' AfAnimatedClipRRect Demo ').showRepaint(context),
+          title: const Text(' AfAnimatedClipRRect Demo ').afShowRepaint(context),
           centerTitle: true,
           leading: IconButton(
             onPressed: () => Navigator.of(context).pop(),
             icon: const Icon(Icons.arrow_back),
-          ).showRepaint(context),
-        ).showRepaint(context),
+          ).afShowRepaint(context),
+        ).afShowRepaint(context),
       ),
       body: Center(
         child: SingleChildScrollView(
@@ -39,11 +39,12 @@ class _AfAnimatedClipRRectPageOptimizedState extends State<AfAnimatedClipRRectPa
               const Padding(
                 padding: EdgeInsets.all(4.0),
                 child: Text(" Using AfAnimatedClipRRect "),
-              ).showRepaint(context),
+              ).afShowRepaint(context),
 
-              const SizedBox(height: 20).showRepaint(context),
+              const SizedBox(height: 20).afShowRepaint(context),
 
               AfAnimatedClipRRect(
+                /// Or controller: controller,
                 id: "AfAnimatedClipRRect Optimized Demo",
                 borderRadius: () => BorderRadius.circular(value),
                 child: GestureDetector(
@@ -54,6 +55,7 @@ class _AfAnimatedClipRRectPageOptimizedState extends State<AfAnimatedClipRRectPa
                       value = 80;
                     }
                     AfAnimations.update(context, ids: ["AfAnimatedClipRRect Optimized Demo"]);
+                    /// Or controller.update(ids: ["AfAnimatedClipRRect Optimized Demo"]);
                   },
                   child: Container(
                     height: 170,
@@ -69,14 +71,14 @@ class _AfAnimatedClipRRectPageOptimizedState extends State<AfAnimatedClipRRectPa
                             style: TextStyle(color: Colors.white),
                             textAlign: TextAlign.center,
                           ),
-                        ).showRepaint(context),
+                        ).afShowRepaint(context),
                       ),
                     ),
                   ),
                 ),
               ),
 
-              const SizedBox(height: 20).showRepaint(context),
+              const SizedBox(height: 20).afShowRepaint(context),
 
               SizedBox(
                 width: MediaQuery.of(context).size.width * 0.6,
@@ -92,11 +94,11 @@ class _AfAnimatedClipRRectPageOptimizedState extends State<AfAnimatedClipRRectPa
                   child: const Padding(
                     padding: EdgeInsets.all(3.0),
                     child: Text(" Animate "),
-                  ).showRepaint(context),
+                  ).afShowRepaint(context),
                 ),
-              ).showRepaint(context),
+              ).afShowRepaint(context),
 
-              const SizedBox(height: 20).showRepaint(context),
+              const SizedBox(height: 20).afShowRepaint(context),
 
               const Padding(
                 padding: EdgeInsets.all(4.0),
@@ -105,11 +107,11 @@ class _AfAnimatedClipRRectPageOptimizedState extends State<AfAnimatedClipRRectPa
                   textAlign: TextAlign.center,
                   textScaleFactor: 0.75,
                 ),
-              ).showRepaint(context),
+              ).afShowRepaint(context),
             ],
-          ).showRepaint(context),
+          ).afShowRepaint(context),
         )
-      ).showRepaint(context),
+      ).afShowRepaint(context),
     );
   }
 

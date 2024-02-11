@@ -1,18 +1,21 @@
+import 'dart:math';
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 
 import 'package:af_animations/af_animations.dart';
 
 
-class AfAnimatedClipRRectPageUnoptimized extends StatefulWidget {
-  const AfAnimatedClipRRectPageUnoptimized({
+class AfAnimatedValuePageUnoptimized extends StatefulWidget {
+  const AfAnimatedValuePageUnoptimized({
     super.key,
   });
 
   @override
-  State<AfAnimatedClipRRectPageUnoptimized> createState() => _AfAnimatedClipRRectPageUnoptimizedState();
+  State<AfAnimatedValuePageUnoptimized> createState() => _AfAnimatedValuePageUnoptimizedState();
 }
 
-class _AfAnimatedClipRRectPageUnoptimizedState extends State<AfAnimatedClipRRectPageUnoptimized> with SingleTickerProviderStateMixin {
+class _AfAnimatedValuePageUnoptimizedState extends State<AfAnimatedValuePageUnoptimized> with TickerProviderStateMixin {
 
   late AnimationController controller;
   late Animation<double> animation;
@@ -23,7 +26,7 @@ class _AfAnimatedClipRRectPageUnoptimizedState extends State<AfAnimatedClipRRect
       vsync: this,
       duration: AfAnimations.getDuration(context),
     );
-    animation = Tween<double>(begin: 30.0, end: 80.0).animate(
+    animation = Tween<double>(begin: 0.0, end: 1.0).animate(
       CurvedAnimation(parent: controller, curve: AfAnimations.getCurve(context))
     );
 
@@ -50,7 +53,7 @@ class _AfAnimatedClipRRectPageUnoptimizedState extends State<AfAnimatedClipRRect
         child: AppBar(
           title: const Padding(
             padding: EdgeInsets.all(3.0),
-            child: Text(" AfAnimatedClipRRect Demo "),
+            child: Text(" AfAnimatedValue Demo "),
           ).afShowRepaint(context),
           centerTitle: true,
           leading: IconButton(
@@ -68,38 +71,55 @@ class _AfAnimatedClipRRectPageUnoptimizedState extends State<AfAnimatedClipRRect
               const Padding(
                 padding: EdgeInsets.all(4.0),
                 child: Text(
-                  " Without using AfAnimatedClipRRect, very poor animation practices are employed in this animation. ",
+                  " Without using AfAnimatedValue, very poor animation practices are employed in this animation. ",
                   textAlign: TextAlign.center,
                 ),
               ).afShowRepaint(context),
 
               const SizedBox(height: 20).afShowRepaint(context),
 
-              ClipRRect(
-                borderRadius: BorderRadius.circular(animation.value),
-                child: GestureDetector(
-                  onTap: () {
-                    if (controller.status == AnimationStatus.forward) {
-                      controller.reverse();
-                    } else {
-                      controller.forward();
-                    }
-                  },
-                  child: Container(
-                    height: 170,
-                    width: 170,
-                    color: Colors.red,
-                    child: Center(
-                      child: Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: const Padding(
-                          padding: EdgeInsets.all(8.0),
-                          child: Text(
-                            "Example content of the widget",
-                            style: TextStyle(color: Colors.white),
-                            textAlign: TextAlign.center,
+              GestureDetector(
+                onTap: () {
+                  if (controller.status == AnimationStatus.completed) {
+                    controller.reverse();
+                  } else {
+                    controller.forward();
+                  }
+                },
+                child: Container(
+                  height: lerpDouble(170, 300, animation.value),
+                  width: lerpDouble(230, min(MediaQuery.of(context).size.width, 270), animation.value),
+                  color: Color.lerp(Colors.red, Colors.blue[700]!, animation.value),
+                  child: Center(
+                    child: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Transform.rotate(
+                            angle: lerpDouble(0, 360, animation.value)! * 0.0174532925199433,
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                "Example",
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 14 + lerpDouble(0, 10, animation.value)!
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                            ).afShowRepaint(context),
                           ),
-                        ).afShowRepaint(context),
+
+                          const Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: Text(
+                              "Example content of the widget",
+                              style: TextStyle(color: Colors.black),
+                              textAlign: TextAlign.center,
+                            ),
+                          ).afShowRepaint(context),
+                        ],
                       ),
                     ),
                   ),

@@ -42,10 +42,22 @@ class _ImplicitlyPageState extends State<ImplicitlyPage> {
 
               SizedBox(
                 width: MediaQuery.of(context).size.width * 0.6,
+                child: const ElevatedButton(
+                  onPressed: null, ///In progress
+                  child: Text("AfAnimatedContainer")
+                ),
+              ),
+
+              const SizedBox(height: 15),
+
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.6,
                 child: ElevatedButton(
                   onPressed: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(builder: (context) => SelectExampleTypePage(
+                        description: "The animated version of the ClipRRect widget. \n\n"
+                        "Note: It's better to use AfAnimatedContainer.\nUse this widget if your case requires it.",
                         titleUnoptimizeVersion: "Without using AfAnimatedClipRRect",
                         onTapUnoptimizeVersion: () {
                           Navigator.of(context).pushNamed("/animated_clip_rrect_page_unoptimized");
