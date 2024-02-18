@@ -45,6 +45,10 @@ class AfAnimatedClipRRect extends StatefulWidget {
     this.curve,
     this.onEnd,
     this.child,
+    this.initState,
+    this.didUpdateWidget,
+    this.didChangeDependencies,
+    this.dispose,
   });
 
   /// {@macro AfController}
@@ -85,6 +89,18 @@ class AfAnimatedClipRRect extends StatefulWidget {
   /// Defaults to [Clip.antiAlias].
   final Clip clipBehavior;
 
+    /// {@macro AfWidgetOn_initState}
+  final void Function()? initState;
+
+  /// {@macro AfWidgetOn_didUpdateWidget}
+  final void Function(AfAnimatedClipRRect oldWidget)? didUpdateWidget;
+
+  /// {@macro AfWidgetOn_didChangeDependencies}
+  final void Function()? didChangeDependencies;
+
+  /// {@macro AfWidgetOn_dispose}
+  final void Function()? dispose;
+
   @override
   State<AfAnimatedClipRRect> createState() => _AfAnimatedClipRRectState();
 
@@ -99,6 +115,14 @@ class _AfAnimatedClipRRectState extends _AfWidget<AfAnimatedClipRRect> {
 
   @override
   AfController? get controller => widget.controller;
+
+  @override
+  _AfWidgetOn<AfAnimatedClipRRect> get afWidgetOn => _AfWidgetOn<AfAnimatedClipRRect>(
+    initState: widget.initState,
+    didUpdateWidget: widget.didUpdateWidget,
+    didChangeDependencies: widget.didChangeDependencies,
+    dispose: widget.dispose,
+  );
 
   @override
   void update() {

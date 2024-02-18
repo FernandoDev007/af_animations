@@ -8,6 +8,7 @@ import 'package:flutter/rendering.dart';
 
 part 'af_controller.dart';
 part 'af_widget.dart';
+part 'af_widget_on.dart';
 part 'af_widget_state.dart';
 part 'extensions/widgets_extension.dart';
 part 'implicitly/animated_clip_rrect.dart';
@@ -74,7 +75,7 @@ part 'value/animated_value.dart';
 /// /// Update all AfWidgets without a specified ID.
 /// AfAnimations.update(context);
 /// /// You specify the IDs to update, and it will update the widget entirely in an optimal way.
-/// AfAnimations.update(context, ids: ["updateIcon", "updateValue", "Anothers"]);
+/// AfAnimations.update(context, ids: ["updateIcon", "updateValue", "Another"]);
 /// ```
 /// {@endtemplate}
 /// 

@@ -24,6 +24,10 @@ class AfAnimatedValue extends StatefulWidget {
     this.curve,
     this.onEnd,
     this.child,
+    this.initState,
+    this.didUpdateWidget,
+    this.didChangeDependencies,
+    this.dispose,
   });
 
   /// {@macro AfController}
@@ -64,6 +68,18 @@ class AfAnimatedValue extends StatefulWidget {
     Widget child,
   ) builder;
 
+  /// {@macro AfWidgetOn_initState}
+  final void Function()? initState;
+
+  /// {@macro AfWidgetOn_didUpdateWidget}
+  final void Function(AfAnimatedValue oldWidget)? didUpdateWidget;
+
+  /// {@macro AfWidgetOn_didChangeDependencies}
+  final void Function()? didChangeDependencies;
+
+  /// {@macro AfWidgetOn_dispose}
+  final void Function()? dispose;
+
   @override
   State<AfAnimatedValue> createState() => _AfAnimatedValueState();
 
@@ -78,6 +94,14 @@ class _AfAnimatedValueState extends _AfWidget<AfAnimatedValue> {
 
   @override
   AfController? get controller => widget.controller;
+
+  @override
+  _AfWidgetOn<AfAnimatedValue> get afWidgetOn => _AfWidgetOn<AfAnimatedValue>(
+    initState: widget.initState,
+    didUpdateWidget: widget.didUpdateWidget,
+    didChangeDependencies: widget.didChangeDependencies,
+    dispose: widget.dispose,
+  );
 
   @override
   void update() {

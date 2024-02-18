@@ -21,6 +21,10 @@ class AfBuilder extends StatefulWidget {
     this.id = "",
     this.child,
     required this.builder,
+    this.initState,
+    this.didUpdateWidget,
+    this.didChangeDependencies,
+    this.dispose,
   });
 
   /// {@macro AfController}
@@ -46,6 +50,18 @@ class AfBuilder extends StatefulWidget {
     Widget? child
   ) builder;
 
+  /// {@macro AfWidgetOn_initState}
+  final void Function()? initState;
+
+  /// {@macro AfWidgetOn_didUpdateWidget}
+  final void Function(AfBuilder oldWidget)? didUpdateWidget;
+
+  /// {@macro AfWidgetOn_didChangeDependencies}
+  final void Function()? didChangeDependencies;
+
+  /// {@macro AfWidgetOn_dispose}
+  final void Function()? dispose;
+
   @override
   State<AfBuilder> createState() => _AfBuilderState();
 
@@ -58,6 +74,14 @@ class _AfBuilderState extends _AfWidget<AfBuilder> {
 
   @override
   AfController? get controller => widget.controller;
+
+  @override
+  _AfWidgetOn<AfBuilder> get afWidgetOn => _AfWidgetOn<AfBuilder>(
+    initState: widget.initState,
+    didUpdateWidget: widget.didUpdateWidget,
+    didChangeDependencies: widget.didChangeDependencies,
+    dispose: widget.dispose,
+  );
 
   @override
   void update() {}

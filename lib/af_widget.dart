@@ -9,6 +9,9 @@ abstract class  _AfWidget<T extends StatefulWidget> extends State<T> {
   /// {@macro AfWidgets_all}
   _AfWidgetState? state;
 
+  /// {@macro AfWidgetOn}
+  _AfWidgetOn get afWidgetOn;
+
   /// Check if there is an ancestor AfAnimations and perform an action based on that
   /// {@macro AfAnimations_allGetters}
   bool get existsAncestor => (AfAnimations.existsAncestor(context) || controller != null) && mounted;
@@ -60,6 +63,7 @@ abstract class  _AfWidget<T extends StatefulWidget> extends State<T> {
       subscription();
       update();
     }
+    afWidgetOn.initState?.call();
     super.initState();
   }
 
@@ -69,8 +73,22 @@ abstract class  _AfWidget<T extends StatefulWidget> extends State<T> {
       unsubscribe();
       subscription();
     }
+    afWidgetOn.didUpdateWidget?.call(oldWidget);
     super.didUpdateWidget(oldWidget);
   }
 
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    afWidgetOn.didChangeDependencies?.call();
+  }
+
+  @override
+  void dispose() {
+    afWidgetOn.dispose?.call();
+    super.dispose();
+  }
+
 }
+
 

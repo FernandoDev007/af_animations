@@ -1,3 +1,8 @@
+## [0.3.0]
+
+- Added the functions initState, didUpdateWidget, didChangeDependencies, and dispose to all AfWidgets
+- Fix pub score
+
 ## [0.3.0] Phoenix...
 
 - Added AfBuilder

@@ -77,7 +77,7 @@ part of 'af_animations.dart';
 /// /// Update all AfWidgets without a specified ID.
 /// controller.update();
 /// /// You specify the IDs to update, and it will update the widget entirely in an optimal way.
-/// controller.update(ids: ["updateIcon", "updateValue", "Anothers"]);
+/// controller.update(ids: ["updateIcon", "updateValue", "Another"]);
 /// ```
 /// {@endtemplate}
 /// 

@@ -140,7 +140,7 @@ class _ImplicitlyPageState extends State<ImplicitlyPage> {
                 width: MediaQuery.of(context).size.width * 0.6,
                 child: const ElevatedButton(
                   onPressed: null, ///In progress
-                  child: Text("AfAnimatedTransalte")
+                  child: Text("AfAnimatedTranslate")
                 ),
               ),
 
