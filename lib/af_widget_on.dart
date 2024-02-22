@@ -1,12 +1,10 @@
 part of 'af_animations.dart';
 
-
 /// {@template AfWidgetOn}
 /// A simple class that groups the state functions of AfWidgets.
 /// {@endtemplate}
 class _AfWidgetOn<T> {
-
-/// {@template AfWidgetOn_initState}
+  /// {@template AfWidgetOn_initState}
   /// Called when this object is inserted into the tree.
   ///
   /// The framework will call this method exactly once for each [State] object
@@ -36,7 +34,7 @@ class _AfWidgetOn<T> {
   ///
   /// Implementations of this method should start with a call to the inherited
   /// method, as in `super.initState()`.
-  /// 
+  ///
   /// From framework.dart
   /// {@endtemplate}
   final void Function()? initState;
@@ -63,7 +61,7 @@ class _AfWidgetOn<T> {
   ///
   /// _See the discussion at [Element.rebuild] for more information on when this
   /// method is called._
-  /// 
+  ///
   /// From framework.dart
   /// {@endtemplate}
   final void Function(T oldWidget)? didUpdateWidget;
@@ -83,7 +81,7 @@ class _AfWidgetOn<T> {
   /// this method because they need to do some expensive work (e.g., network
   /// fetches) when their dependencies change, and that work would be too
   /// expensive to do for every build.
-  /// 
+  ///
   /// From framework.dart
   /// {@endtemplate}
   final void Function()? didChangeDependencies;
@@ -125,7 +123,7 @@ class _AfWidgetOn<T> {
   /// See also:
   ///
   ///  * [deactivate], which is called prior to [dispose].
-  /// 
+  ///
   /// From framework.dart
   /// {@endtemplate}
   final void Function()? dispose;
@@ -137,6 +135,4 @@ class _AfWidgetOn<T> {
     required this.didChangeDependencies,
     required this.dispose,
   });
-
 }
-

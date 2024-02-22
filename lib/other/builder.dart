@@ -1,19 +1,17 @@
 part of '../af_animations.dart';
 
-
 /// {@template AfWidgets_AfBuilder}
 /// The ```Builder``` version, which has ```AfWidget``` implemented inside,
 /// updates the widget easily and using ```AfAnimations.update```
 /// or by using ```AfController``` and ```controller.update```,
 /// whichever is easier for you...
 /// {@endtemplate}
-/// 
+///
 /// {@macro AfWidgets_howToUse}
-/// 
+///
 /// All AfWidgets
 /// {@macro AfWidgets_all}
 class AfBuilder extends StatefulWidget {
-
   /// {@macro AfWidgets_AfBuilder}
   const AfBuilder({
     super.key,
@@ -45,10 +43,7 @@ class AfBuilder extends StatefulWidget {
   /// object identity. Typically the parent's build method will construct
   /// a new tree of widgets and so a new Builder child will not be [identical]
   /// to the corresponding old one.
-  final Widget Function(
-    BuildContext context,
-    Widget? child
-  ) builder;
+  final Widget Function(BuildContext context, Widget? child) builder;
 
   /// {@macro AfWidgetOn_initState}
   final void Function()? initState;
@@ -64,11 +59,9 @@ class AfBuilder extends StatefulWidget {
 
   @override
   State<AfBuilder> createState() => _AfBuilderState();
-
 }
 
 class _AfBuilderState extends _AfWidget<AfBuilder> {
-
   @override
   String get id => widget.id;
 
@@ -76,24 +69,20 @@ class _AfBuilderState extends _AfWidget<AfBuilder> {
   AfController? get controller => widget.controller;
 
   @override
-  _AfWidgetOn<AfBuilder> get afWidgetOn => _AfWidgetOn<AfBuilder>(
-    initState: widget.initState,
-    didUpdateWidget: widget.didUpdateWidget,
-    didChangeDependencies: widget.didChangeDependencies,
-    dispose: widget.dispose,
-  );
+  _AfWidgetOn<AfBuilder> get afWidgetOn {
+    return _AfWidgetOn<AfBuilder>(
+      initState: widget.initState,
+      didUpdateWidget: widget.didUpdateWidget,
+      didChangeDependencies: widget.didChangeDependencies,
+      dispose: widget.dispose,
+    );
+  }
 
   @override
   void update() {}
 
   @override
   Widget build(BuildContext context) {
-    return widget.builder.call(
-      context,
-      widget.child
-    );
+    return widget.builder.call(context, widget.child);
   }
-
 }
-
-

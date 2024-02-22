@@ -1,10 +1,8 @@
 part of 'af_animations.dart';
 
-
 /// All AfWidgets:
 /// {@macro AfWidgets_all}
-abstract class  _AfWidget<T extends StatefulWidget> extends State<T> {
-
+abstract class _AfWidget<T extends StatefulWidget> extends State<T> {
   /// Used only for AfWidgets
   /// {@macro AfWidgets_all}
   _AfWidgetState? state;
@@ -14,7 +12,8 @@ abstract class  _AfWidget<T extends StatefulWidget> extends State<T> {
 
   /// Check if there is an ancestor AfAnimations and perform an action based on that
   /// {@macro AfAnimations_allGetters}
-  bool get existsAncestor => (AfAnimations.existsAncestor(context) || controller != null) && mounted;
+  bool get existsAncestor =>
+      (AfAnimations.existsAncestor(context) || controller != null) && mounted;
 
   /// {@macro AfWidgets_id}
   String get id;
@@ -23,14 +22,13 @@ abstract class  _AfWidget<T extends StatefulWidget> extends State<T> {
   /// {@macro AfController_examples}
   /// {@macro AfController_principalGetters}
   /// {@macro AfController_allGetters}
-  /// 
+  ///
   /// These functions will work in these AfWidgets
   /// {@macro AfWidgets_all}
   AfController? get controller;
 
   /// Set to update values
   void update();
-
 
   /// {@macro AfAnimations_subscription}
   void subscription() {
@@ -88,7 +86,4 @@ abstract class  _AfWidget<T extends StatefulWidget> extends State<T> {
     afWidgetOn.dispose?.call();
     super.dispose();
   }
-
 }
-
-

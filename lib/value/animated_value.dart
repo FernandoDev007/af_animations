@@ -1,6 +1,5 @@
 part of '../af_animations.dart';
 
-
 /// {@template AfWidgets_AfAnimatedValue}
 /// Animating a single value by interpolating to the new value,
 /// a very dynamic animation widget and using ```AfAnimations.update```
@@ -8,11 +7,10 @@ part of '../af_animations.dart';
 /// {@endtemplate}
 ///
 /// {@macro AfWidgets_howToUse}
-/// 
+///
 /// All AfWidgets
 /// {@macro AfWidgets_all}
 class AfAnimatedValue extends StatefulWidget {
-
   /// {@macro AfWidgets_AfAnimatedValue}
   const AfAnimatedValue({
     super.key,
@@ -60,7 +58,7 @@ class AfAnimatedValue extends StatefulWidget {
   /// object identity. Typically the parent's build method will construct
   /// a new tree of widgets and so a new Builder child will not be [identical]
   /// to the corresponding old one.
-  /// 
+  ///
   /// And it also returns the current value of the animation.
   final Widget Function(
     BuildContext context,
@@ -82,11 +80,9 @@ class AfAnimatedValue extends StatefulWidget {
 
   @override
   State<AfAnimatedValue> createState() => _AfAnimatedValueState();
-
 }
 
 class _AfAnimatedValueState extends _AfWidget<AfAnimatedValue> {
-
   late double value;
 
   @override
@@ -96,12 +92,14 @@ class _AfAnimatedValueState extends _AfWidget<AfAnimatedValue> {
   AfController? get controller => widget.controller;
 
   @override
-  _AfWidgetOn<AfAnimatedValue> get afWidgetOn => _AfWidgetOn<AfAnimatedValue>(
-    initState: widget.initState,
-    didUpdateWidget: widget.didUpdateWidget,
-    didChangeDependencies: widget.didChangeDependencies,
-    dispose: widget.dispose,
-  );
+  _AfWidgetOn<AfAnimatedValue> get afWidgetOn {
+    return _AfWidgetOn<AfAnimatedValue>(
+      initState: widget.initState,
+      didUpdateWidget: widget.didUpdateWidget,
+      didChangeDependencies: widget.didChangeDependencies,
+      dispose: widget.dispose,
+    );
+  }
 
   @override
   void update() {
@@ -124,14 +122,10 @@ class _AfAnimatedValueState extends _AfWidget<AfAnimatedValue> {
       child: widget.child ?? const SizedBox.shrink(),
     );
   }
-
 }
-
-
 
 /// Used exclusively for ```AfAnimatedValue```
 class _AfAnimatedValue extends ImplicitlyAnimatedWidget {
-
   /// Used exclusively for ```AfAnimatedValue```
   const _AfAnimatedValue({
     Key? key,
@@ -142,12 +136,7 @@ class _AfAnimatedValue extends ImplicitlyAnimatedWidget {
     required Curve curve,
     required Duration duration,
     required VoidCallback? onEnd,
-  }) : super(
-    key: key,
-    curve: curve,
-    duration: duration,
-    onEnd: onEnd
-  );
+  }) : super(key: key, curve: curve, duration: duration, onEnd: onEnd);
 
   /// {@macro AfController}
   final AfController? controller;
@@ -165,7 +154,7 @@ class _AfAnimatedValue extends ImplicitlyAnimatedWidget {
   /// object identity. Typically the parent's build method will construct
   /// a new tree of widgets and so a new Builder child will not be [identical]
   /// to the corresponding old one.
-  /// 
+  ///
   /// And it also returns the current value of the animation.
   final Widget Function(
     BuildContext context,
@@ -173,46 +162,42 @@ class _AfAnimatedValue extends ImplicitlyAnimatedWidget {
     Widget child,
   ) builder;
 
-
   @override
   __AfAnimatedValueState createState() => __AfAnimatedValueState();
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties.add(DiagnosticsProperty<double>('value', value, defaultValue: null));
+    properties
+        .add(DiagnosticsProperty<double>('value', value, defaultValue: null));
   }
-
 }
 
 class __AfAnimatedValueState extends AnimatedWidgetBaseState<_AfAnimatedValue> {
-
   Tween<double>? _valueTween;
 
   @override
   void forEachTween(TweenVisitor<dynamic> visitor) {
-    _valueTween = visitor(
-      _valueTween,
-      widget.value,
-      (dynamic value) => Tween<double>(begin: value as double)
-    ) as Tween<double>?;
+    _valueTween = visitor(_valueTween, widget.value,
+            (dynamic value) => Tween<double>(begin: value as double))
+        as Tween<double>?;
   }
-
 
   @override
   Widget build(BuildContext context) {
-    return widget.builder(
-      context,
-      _valueTween?.evaluate(animation) ?? 0,
-      widget.child ?? const SizedBox.shrink(),
-    ).afShowRepaint(context, controller: widget.controller);
+    return widget.builder
+        .call(
+          context,
+          _valueTween?.evaluate(animation) ?? 0,
+          widget.child ?? const SizedBox.shrink(),
+        )
+        .afShowRepaint(context, controller: widget.controller);
   }
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder description) {
     super.debugFillProperties(description);
-    description.add(DiagnosticsProperty<Tween<double>>('value', _valueTween, defaultValue: null));
+    description.add(DiagnosticsProperty<Tween<double>>('value', _valueTween,
+        defaultValue: null));
   }
-
 }
-

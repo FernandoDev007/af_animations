@@ -1,11 +1,10 @@
 part of '../af_animations.dart';
 
-
 /// {@template AfWidgets_AfAnimatedClipRRect}
 /// The animated version of the ```ClipRRect``` widget,
 /// specifying a borderRadius and using ```AfAnimations.update```
 /// or by using ```AfController``` and ```controller.update```, will animate the change.
-/// 
+///
 /// Creates a rounded-rectangular clip.
 ///
 /// The borderRadius defaults to BorderRadius.zero, i.e. a rectangle with
@@ -15,9 +14,9 @@ part of '../af_animations.dart';
 ///
 /// The clipBehavior argument must not be null. If clipBehavior is
 /// Clip.none, no clipping will be applied.
-/// 
+///
 /// ### Recommendations:
-/// 
+///
 /// - It is recommended to replace the use of AfAnimatedClipRRect with AfAnimatedContainer.
 /// In many cases, that's what you will need, and it's more optimized.
 /// AfAnimatedClipRRect exists because it can be used in very specific cases,
@@ -28,11 +27,10 @@ part of '../af_animations.dart';
 /// {@endtemplate}
 ///
 /// {@macro AfWidgets_howToUse}
-/// 
+///
 /// All AfWidgets
 /// {@macro AfWidgets_all}
 class AfAnimatedClipRRect extends StatefulWidget {
-
   /// {@macro AfWidgets_AfAnimatedClipRRect}
   const AfAnimatedClipRRect({
     super.key,
@@ -77,7 +75,7 @@ class AfAnimatedClipRRect extends StatefulWidget {
   /// exceed width/height.
   ///
   /// This value is ignored if [clipper] is non-null.}
-  /// 
+  ///
   /// {@macro AfWidgets_whyFunction}
   final BorderRadius Function() borderRadius;
 
@@ -89,7 +87,7 @@ class AfAnimatedClipRRect extends StatefulWidget {
   /// Defaults to [Clip.antiAlias].
   final Clip clipBehavior;
 
-    /// {@macro AfWidgetOn_initState}
+  /// {@macro AfWidgetOn_initState}
   final void Function()? initState;
 
   /// {@macro AfWidgetOn_didUpdateWidget}
@@ -103,11 +101,9 @@ class AfAnimatedClipRRect extends StatefulWidget {
 
   @override
   State<AfAnimatedClipRRect> createState() => _AfAnimatedClipRRectState();
-
 }
 
 class _AfAnimatedClipRRectState extends _AfWidget<AfAnimatedClipRRect> {
-
   late BorderRadius _borderRadius;
 
   @override
@@ -117,12 +113,14 @@ class _AfAnimatedClipRRectState extends _AfWidget<AfAnimatedClipRRect> {
   AfController? get controller => widget.controller;
 
   @override
-  _AfWidgetOn<AfAnimatedClipRRect> get afWidgetOn => _AfWidgetOn<AfAnimatedClipRRect>(
-    initState: widget.initState,
-    didUpdateWidget: widget.didUpdateWidget,
-    didChangeDependencies: widget.didChangeDependencies,
-    dispose: widget.dispose,
-  );
+  _AfWidgetOn<AfAnimatedClipRRect> get afWidgetOn {
+    return _AfWidgetOn<AfAnimatedClipRRect>(
+      initState: widget.initState,
+      didUpdateWidget: widget.didUpdateWidget,
+      didChangeDependencies: widget.didChangeDependencies,
+      dispose: widget.dispose,
+    );
+  }
 
   @override
   void update() {
@@ -146,14 +144,10 @@ class _AfAnimatedClipRRectState extends _AfWidget<AfAnimatedClipRRect> {
       child: widget.child ?? const SizedBox.shrink(),
     );
   }
-
 }
-
-
 
 /// Used exclusively for ```AfAnimatedClipRRect```
 class _AfAnimatedClipRRect extends ImplicitlyAnimatedWidget {
-
   /// Used exclusively for ```AfAnimatedClipRRect```
   const _AfAnimatedClipRRect({
     Key? key,
@@ -165,12 +159,7 @@ class _AfAnimatedClipRRect extends ImplicitlyAnimatedWidget {
     required Curve curve,
     required Duration duration,
     required VoidCallback? onEnd,
-  }) : super(
-    key: key,
-    curve: curve,
-    duration: duration,
-    onEnd: onEnd
-  );
+  }) : super(key: key, curve: curve, duration: duration, onEnd: onEnd);
 
   /// {@macro AfController}
   final AfController? controller;
@@ -186,7 +175,7 @@ class _AfAnimatedClipRRect extends ImplicitlyAnimatedWidget {
   /// exceed width/height.
   ///
   /// This value is ignored if [clipper] is non-null.}
-  /// 
+  ///
   /// {@macro AfWidgets_whyFunction}
   final BorderRadius borderRadius;
 
@@ -204,13 +193,14 @@ class _AfAnimatedClipRRect extends ImplicitlyAnimatedWidget {
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties.add(DiagnosticsProperty<BorderRadius>('borderRadius', borderRadius, defaultValue: null));
+    properties.add(DiagnosticsProperty<BorderRadius>(
+        'borderRadius', borderRadius,
+        defaultValue: null));
   }
-
 }
 
-class __AfAnimatedClipRRectState extends AnimatedWidgetBaseState<_AfAnimatedClipRRect> {
-
+class __AfAnimatedClipRRectState
+    extends AnimatedWidgetBaseState<_AfAnimatedClipRRect> {
   BorderRadiusTween? _borderRadiusTween;
 
   @override
@@ -221,7 +211,6 @@ class __AfAnimatedClipRRectState extends AnimatedWidgetBaseState<_AfAnimatedClip
       (dynamic value) => BorderRadiusTween(begin: value as BorderRadius),
     ) as BorderRadiusTween?;
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -236,8 +225,8 @@ class __AfAnimatedClipRRectState extends AnimatedWidgetBaseState<_AfAnimatedClip
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder description) {
     super.debugFillProperties(description);
-    description.add(DiagnosticsProperty<BorderRadiusTween>('borderRadius', _borderRadiusTween, defaultValue: null));
+    description.add(DiagnosticsProperty<BorderRadiusTween>(
+        'borderRadius', _borderRadiusTween,
+        defaultValue: null));
   }
-
 }
-

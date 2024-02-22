@@ -1,15 +1,12 @@
 part of '../af_animations.dart';
 
-
 /// Extensions that will be used in AfWidgets, although you can also use them.
 extension AfWidgetsExtension on Widget {
-
   /// {@macro AfAnimations_showRepaint}
-  Widget afShowRepaint(
-    BuildContext context, {
-    AfController? controller
-  }) {
-    if (controller?.isShowRepaint() ?? AfAnimations.isShowRepaint(context) ?? true) {
+  Widget afShowRepaint(BuildContext context, {AfController? controller}) {
+    if (controller?.isShowRepaint() ??
+        AfAnimations.isShowRepaint(context) ??
+        true) {
       List<MaterialColor> colors = Colors.primaries;
       Random random = Random();
 
@@ -26,6 +23,4 @@ extension AfWidgetsExtension on Widget {
       return this;
     }
   }
-
 }
-
