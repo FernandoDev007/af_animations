@@ -2,30 +2,16 @@ import 'dart:ui';
 
 import 'package:af_animations/af_animations.dart';
 import 'package:af_animations_example/home_page.dart';
-import 'package:af_animations_example/implicitly_examples_demo/animated_clip_rrect_page_optimized.dart';
-import 'package:af_animations_example/implicitly_examples_demo/animated_clip_rrect_page_unoptimized.dart';
-import 'package:af_animations_example/implicitly_examples_demo/implicitly_page.dart';
-import 'package:af_animations_example/other_widgets_examples_demo/af_builder_page_optimized.dart';
-import 'package:af_animations_example/other_widgets_examples_demo/af_builder_page_unoptimized.dart';
-import 'package:af_animations_example/other_widgets_examples_demo/other_widgets_page.dart';
-import 'package:af_animations_example/value_examples_demo/animated_value_page_optimized.dart';
-import 'package:af_animations_example/value_examples_demo/animated_value_page_unoptimized.dart';
-import 'package:af_animations_example/value_examples_demo/value_page.dart';
+import 'package:af_animations_example/value_examples_demo/animated_secondary_value_page_optimized.dart';
 import 'package:flutter/material.dart';
-
 
 void main() => runApp(const MyApp());
 
-
 class MyApp extends StatefulWidget {
-
-  const MyApp({
-    super.key
-  });
+  const MyApp({super.key});
 
   @override
   State<MyApp> createState() => _MyAppState();
-
 }
 
 class _MyAppState extends State<MyApp> {
@@ -58,6 +44,8 @@ class _MyAppState extends State<MyApp> {
           "/value_demo" : (context) => const ValuePage(),
           "/animated_value_page_optimized" : (context) => const AfAnimatedValuePageOptimized(),
           "/animated_value_page_unoptimized" : (context) => const AfAnimatedValuePageUnoptimized(),
+          "/animated_secondary_value_page_optimized" : (context) => const AfAnimatedSecondaryValuePageOptimized(),
+          "/animated_secondary_value_page_unoptimized" : (context) => const AfAnimatedSecondaryValuePageUnoptimized(),
 
           /// Implicitly Animations
           "/implicitly_demo" : (context) => const ImplicitlyPage(),
@@ -76,6 +64,4 @@ class _MyAppState extends State<MyApp> {
       ),
     );
   }
-
 }
-

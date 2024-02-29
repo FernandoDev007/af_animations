@@ -49,19 +49,9 @@ class _OtherWidgetsPageState extends State<OtherWidgetsPage> {
                       ))
                     );
                   },
-                  child: const Text("AfBuilder")
+                  child: const Text("AfBuilder", textAlign: TextAlign.center)
                 ),
               ),
-
-              /// const SizedBox(height: 15),
-
-              /// SizedBox(
-              ///   width: MediaQuery.of(context).size.width * 0.6,
-              ///   child: const ElevatedButton(
-              ///     onPressed: null, ///In progress
-              ///     child: Text("AfAnimatedMatrix4")
-              ///   ),
-              /// ),
 
               const SizedBox(height: 20),
             ],

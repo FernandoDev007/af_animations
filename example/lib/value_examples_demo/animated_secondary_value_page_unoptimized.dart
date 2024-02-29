@@ -1,9 +1,8 @@
 import 'dart:math';
 import 'dart:ui';
 
-import 'package:flutter/material.dart';
-
 import 'package:af_animations/af_animations.dart';
+import 'package:flutter/material.dart';
 
 
 class AfAnimatedSecondaryValuePageUnoptimized extends StatefulWidget {
@@ -16,7 +15,6 @@ class AfAnimatedSecondaryValuePageUnoptimized extends StatefulWidget {
 }
 
 class _AfAnimatedSecondaryValuePageUnoptimizedState extends State<AfAnimatedSecondaryValuePageUnoptimized> with TickerProviderStateMixin {
-
   late AnimationController controller;
   late AnimationController controller1;
   late Animation<double> animation;
@@ -65,7 +63,7 @@ class _AfAnimatedSecondaryValuePageUnoptimizedState extends State<AfAnimatedSeco
         child: AppBar(
           title: const Padding(
             padding: EdgeInsets.all(3.0),
-            child: Text(" AfAnimatedValue Demo "),
+            child: Text(" AfAnimatedSec. Demo "),
           ).afShowRepaint(context),
           centerTitle: true,
           leading: IconButton(
@@ -83,7 +81,7 @@ class _AfAnimatedSecondaryValuePageUnoptimizedState extends State<AfAnimatedSeco
               const Padding(
                 padding: EdgeInsets.all(4.0),
                 child: Text(
-                  " Without using AfAnimatedValue, very poor animation practices are employed in this animation. ",
+                  " Without using AfAnimatedSecondaryValue, very poor animation practices are employed in this animation. ",
                   textAlign: TextAlign.center,
                 ),
               ).afShowRepaint(context),
@@ -92,20 +90,27 @@ class _AfAnimatedSecondaryValuePageUnoptimizedState extends State<AfAnimatedSeco
 
               GestureDetector(
                 onTap: () {
-                  if (controller.status == AnimationStatus.completed
-                    || controller1.status == AnimationStatus.forward) {
+                  if (controller.status == AnimationStatus.completed ||
+                      controller1.status == AnimationStatus.forward) {
                     controller.reverse().then((value) {
-                      controller1.reverse();
+                      Future.delayed(const Duration(milliseconds: 400), () {
+                        controller1.reverse();
+                      });
                     });
                   } else {
                     controller.forward().then((value) {
-                      controller1.forward();
+                      Future.delayed(const Duration(milliseconds: 400), () {
+                        controller1.forward();
+                      });
                     });
                   }
                 },
                 child: Container(
                   height: lerpDouble(170, 270, animation.value),
-                  width: lerpDouble(170, min(MediaQuery.of(context).size.width, 270), animation.value),
+                  width: lerpDouble(
+                      170,
+                      min(MediaQuery.of(context).size.width, 270),
+                      animation.value),
                   color: Colors.red,
                   child: Center(
                     child: Padding(
@@ -132,15 +137,29 @@ class _AfAnimatedSecondaryValuePageUnoptimizedState extends State<AfAnimatedSeco
                 width: MediaQuery.of(context).size.width * 0.6,
                 child: ElevatedButton(
                   onPressed: () {
-                    if (controller.status == AnimationStatus.completed
-                      || controller1.status == AnimationStatus.forward) {
-                      controller.reverse().then((value) {
-                        controller1.reverse();
-                      });
+                    if (controller.status == AnimationStatus.completed) {
+                      controller.reverse();
                     } else {
-                      controller.forward().then((value) {
-                        controller1.forward();
-                      });
+                      controller.forward();
+                    }
+                  },
+                  child: const Padding(
+                    padding: EdgeInsets.all(3.0),
+                    child: Text(" Animate "),
+                  ).afShowRepaint(context),
+                ),
+              ).afShowRepaint(context),
+
+              const SizedBox(height: 20).afShowRepaint(context),
+
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.6,
+                child: ElevatedButton(
+                  onPressed: () {
+                    if (controller1.status == AnimationStatus.completed) {
+                      controller1.reverse();
+                    } else {
+                      controller1.forward();
                     }
                   },
                   child: const Padding(
@@ -157,9 +176,10 @@ class _AfAnimatedSecondaryValuePageUnoptimizedState extends State<AfAnimatedSeco
                 child: Text(
                   " A color change is a widget rebuild, it may not seem like much, but in production applications, it's important to optimize everything. ",
                   textAlign: TextAlign.center,
-                  textScaleFactor: 0.75,
+                  style: TextStyle(fontSize: 11),
                 ),
               ).afShowRepaint(context),
+
             ],
           ).afShowRepaint(context),
         ),

@@ -50,7 +50,35 @@ class _ValuePageState extends State<ValuePage> {
                       ))
                     );
                   },
-                  child: const Text("AfAnimatedValue")
+                  child: const Text("AfAnimatedValue", textAlign: TextAlign.center)
+                ),
+              ),
+
+              const SizedBox(height: 15),
+
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.6,
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => SelectExampleTypePage(
+                          title: "AfAnimatedSec. Demo",
+                          description: "Animates two values independently by interpolating towards the new value,"
+                            " a very dynamic animation",
+                          titleUnoptimizeVersion: "Without using AfAnimatedSecondaryValue",
+                          onTapUnoptimizeVersion: () {
+                            Navigator.of(context).pushNamed("/animated_secondary_value_page_unoptimized");
+                          },
+                          titleOptimizeVersion: "Using AfAnimatedSecondaryValue",
+                          onTapOptimizedVersion: () {
+                            Navigator.of(context).pushNamed("/animated_secondary_value_page_optimized");
+                          },
+                        )
+                      )
+                    );
+                  },
+                  child: const Text("AfAnimatedSecondaryValue", textAlign: TextAlign.center)
                 ),
               ),
 
@@ -60,7 +88,7 @@ class _ValuePageState extends State<ValuePage> {
                 width: MediaQuery.of(context).size.width * 0.6,
                 child: const ElevatedButton(
                   onPressed: null, ///In progress
-                  child: Text("AfAnimatedSecondaryValue")
+                  child: Text("AfAnimatedTertiaryValue", textAlign: TextAlign.center)
                 ),
               ),
 
@@ -70,17 +98,7 @@ class _ValuePageState extends State<ValuePage> {
                 width: MediaQuery.of(context).size.width * 0.6,
                 child: const ElevatedButton(
                   onPressed: null, ///In progress
-                  child: Text("AfAnimatedTerceryValue")
-                ),
-              ),
-
-              const SizedBox(height: 15),
-
-              SizedBox(
-                width: MediaQuery.of(context).size.width * 0.6,
-                child: const ElevatedButton(
-                  onPressed: null, ///In progress
-                  child: Text("AfAnimatedColor")
+                  child: Text("AfAnimatedColor", textAlign: TextAlign.center)
                 ),
               ),
 

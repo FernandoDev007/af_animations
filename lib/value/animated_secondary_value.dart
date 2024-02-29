@@ -1,7 +1,7 @@
 part of '../af_animations.dart';
 
-/// {@template AfWidgets_AfAnimatedValue}
-/// Animating a single value by interpolating to the new value,
+/// {@template AfWidgets_AfAnimatedSecondaryValue}
+/// Animates two values independently by interpolating towards the new value,
 /// a very dynamic animation widget and using ```AfAnimations.update```
 /// or by using ```AfController``` and ```controller.update```, will animate the change.
 /// {@endtemplate}
@@ -10,13 +10,14 @@ part of '../af_animations.dart';
 ///
 /// All AfWidgets
 /// {@macro AfWidgets_all}
-class AfAnimatedValue extends StatefulWidget {
-  /// {@macro AfWidgets_AfAnimatedValue}
-  const AfAnimatedValue({
+class AfAnimatedSecondaryValue extends StatefulWidget {
+  /// {@macro AfWidgets_AfAnimatedSecondaryValue}
+  const AfAnimatedSecondaryValue({
     super.key,
     this.controller,
     this.id = "",
     required this.value,
+    required this.secondaryValue,
     required this.builder,
     this.duration,
     this.curve,
@@ -51,6 +52,9 @@ class AfAnimatedValue extends StatefulWidget {
   /// The value to update for performing the interpolation animation in the builder.
   final double Function() value;
 
+  /// The value to update for performing the interpolation animation in the builder.
+  final double Function() secondaryValue;
+
   /// Called to obtain the child widget.
   ///
   /// This function is called whenever this widget is included in its parent's
@@ -63,6 +67,7 @@ class AfAnimatedValue extends StatefulWidget {
   final Widget Function(
     BuildContext context,
     double value,
+    double secondaryValue,
     Widget child,
   ) builder;
 
@@ -70,7 +75,7 @@ class AfAnimatedValue extends StatefulWidget {
   final void Function()? initState;
 
   /// {@macro AfWidgetOn_didUpdateWidget}
-  final void Function(AfAnimatedValue oldWidget)? didUpdateWidget;
+  final void Function(AfAnimatedSecondaryValue oldWidget)? didUpdateWidget;
 
   /// {@macro AfWidgetOn_didChangeDependencies}
   final void Function()? didChangeDependencies;
@@ -79,11 +84,14 @@ class AfAnimatedValue extends StatefulWidget {
   final void Function()? dispose;
 
   @override
-  State<AfAnimatedValue> createState() => _AfAnimatedValueState();
+  State<AfAnimatedSecondaryValue> createState() =>
+      _AfAnimatedSecondaryValueState();
 }
 
-class _AfAnimatedValueState extends _AfWidget<AfAnimatedValue> {
+class _AfAnimatedSecondaryValueState
+    extends _AfWidget<AfAnimatedSecondaryValue> {
   late double value;
+  late double secondaryValue;
 
   @override
   String get id => widget.id;
@@ -92,8 +100,8 @@ class _AfAnimatedValueState extends _AfWidget<AfAnimatedValue> {
   AfController? get controller => widget.controller;
 
   @override
-  _AfWidgetOn<AfAnimatedValue> get afWidgetOn {
-    return _AfWidgetOn<AfAnimatedValue>(
+  _AfWidgetOn<AfAnimatedSecondaryValue> get afWidgetOn {
+    return _AfWidgetOn<AfAnimatedSecondaryValue>(
       initState: widget.initState,
       didUpdateWidget: widget.didUpdateWidget,
       didChangeDependencies: widget.didChangeDependencies,
@@ -104,13 +112,15 @@ class _AfAnimatedValueState extends _AfWidget<AfAnimatedValue> {
   @override
   void update() {
     value = widget.value();
+    secondaryValue = widget.secondaryValue();
   }
 
   @override
   Widget build(BuildContext context) {
-    return _AfAnimatedValue(
+    return _AfAnimatedSecondaryValue(
       controller: controller,
       value: value,
+      secondaryValue: secondaryValue,
       builder: widget.builder,
       duration: widget.duration ?? AfAnimations.getDuration(context),
       curve: widget.curve ?? AfAnimations.getCurve(context),
@@ -124,12 +134,13 @@ class _AfAnimatedValueState extends _AfWidget<AfAnimatedValue> {
   }
 }
 
-/// Used exclusively for ```AfAnimatedValue```
-class _AfAnimatedValue extends ImplicitlyAnimatedWidget {
-  /// Used exclusively for ```AfAnimatedValue```
-  const _AfAnimatedValue({
+/// Used exclusively for ```AfAnimatedSecondaryValue```
+class _AfAnimatedSecondaryValue extends ImplicitlyAnimatedWidget {
+  /// Used exclusively for ```AfAnimatedSecondaryValue```
+  const _AfAnimatedSecondaryValue({
     Key? key,
     required this.value,
+    required this.secondaryValue,
     required this.builder,
     required this.controller,
     required this.child,
@@ -144,6 +155,9 @@ class _AfAnimatedValue extends ImplicitlyAnimatedWidget {
   /// The value of the animation to update.
   final double value;
 
+  /// The value of the animation to update.
+  final double secondaryValue;
+
   /// The widget below this widget in the tree.
   final Widget? child;
 
@@ -155,15 +169,17 @@ class _AfAnimatedValue extends ImplicitlyAnimatedWidget {
   /// a new tree of widgets and so a new Builder child will not be [identical]
   /// to the corresponding old one.
   ///
-  /// And it also returns the current value of the animation.
+  /// And it also returns the current value's of the animation.
   final Widget Function(
     BuildContext context,
     double value,
+    double secondaryValue,
     Widget child,
   ) builder;
 
   @override
-  __AfAnimatedValueState createState() => __AfAnimatedValueState();
+  __AfAnimatedSecondaryValueState createState() =>
+      __AfAnimatedSecondaryValueState();
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
@@ -173,12 +189,17 @@ class _AfAnimatedValue extends ImplicitlyAnimatedWidget {
   }
 }
 
-class __AfAnimatedValueState extends AnimatedWidgetBaseState<_AfAnimatedValue> {
+class __AfAnimatedSecondaryValueState
+    extends AnimatedWidgetBaseState<_AfAnimatedSecondaryValue> {
   Tween<double>? _valueTween;
+  Tween<double>? _secondaryValueTween;
 
   @override
   void forEachTween(TweenVisitor<dynamic> visitor) {
     _valueTween = visitor(_valueTween, widget.value,
+            (dynamic value) => Tween<double>(begin: value as double))
+        as Tween<double>?;
+    _secondaryValueTween = visitor(_secondaryValueTween, widget.secondaryValue,
             (dynamic value) => Tween<double>(begin: value as double))
         as Tween<double>?;
   }
@@ -189,6 +210,7 @@ class __AfAnimatedValueState extends AnimatedWidgetBaseState<_AfAnimatedValue> {
         .call(
           context,
           _valueTween?.evaluate(animation) ?? 0,
+          _secondaryValueTween?.evaluate(animation) ?? 0,
           widget.child ?? const SizedBox.shrink(),
         )
         .afShowRepaint(context, controller: widget.controller);

@@ -34,7 +34,7 @@ class _ImplicitlyPageState extends State<ImplicitlyPage> {
                 width: MediaQuery.of(context).size.width * 0.6,
                 child: const ElevatedButton(
                   onPressed: null, ///In progress
-                  child: Text("AfAnimatedDecoration")
+                  child: Text("AfAnimatedDecoration", textAlign: TextAlign.center)
                 ),
               ),
 
@@ -44,7 +44,7 @@ class _ImplicitlyPageState extends State<ImplicitlyPage> {
                 width: MediaQuery.of(context).size.width * 0.6,
                 child: const ElevatedButton(
                   onPressed: null, ///In progress
-                  child: Text("AfAnimatedContainer")
+                  child: Text("AfAnimatedContainer", textAlign: TextAlign.center)
                 ),
               ),
 
@@ -70,7 +70,7 @@ class _ImplicitlyPageState extends State<ImplicitlyPage> {
                       ))
                     );
                   },
-                  child: const Text("AfAnimatedClipRRect")
+                  child: const Text("AfAnimatedClipRRect", textAlign: TextAlign.center)
                 ),
               ),
 
@@ -80,7 +80,7 @@ class _ImplicitlyPageState extends State<ImplicitlyPage> {
                 width: MediaQuery.of(context).size.width * 0.6,
                 child: const ElevatedButton(
                   onPressed: null, ///In progress
-                  child: Text("AfAnimatedMatrix4")
+                  child: Text("AfAnimatedMatrix4", textAlign: TextAlign.center)
                 ),
               ),
 
@@ -90,7 +90,7 @@ class _ImplicitlyPageState extends State<ImplicitlyPage> {
                 width: MediaQuery.of(context).size.width * 0.6,
                 child: const ElevatedButton(
                   onPressed: null, ///In progress
-                  child: Text("AfAnimatedPadding")
+                  child: Text("AfAnimatedPadding", textAlign: TextAlign.center)
                 ),
               ),
 
@@ -100,7 +100,7 @@ class _ImplicitlyPageState extends State<ImplicitlyPage> {
                 width: MediaQuery.of(context).size.width * 0.6,
                 child: const ElevatedButton(
                   onPressed: null, ///In progress
-                  child: Text("AfAnimatedRotation")
+                  child: Text("AfAnimatedRotation", textAlign: TextAlign.center)
                 ),
               ),
 
@@ -110,7 +110,7 @@ class _ImplicitlyPageState extends State<ImplicitlyPage> {
                 width: MediaQuery.of(context).size.width * 0.6,
                 child: const ElevatedButton(
                   onPressed: null, ///In progress
-                  child: Text("AfAnimatedScale")
+                  child: Text("AfAnimatedScale", textAlign: TextAlign.center)
                 ),
               ),
 
@@ -120,7 +120,7 @@ class _ImplicitlyPageState extends State<ImplicitlyPage> {
                 width: MediaQuery.of(context).size.width * 0.6,
                 child: const ElevatedButton(
                   onPressed: null, ///In progress
-                  child: Text("AfAnimatedOpacity")
+                  child: Text("AfAnimatedOpacity", textAlign: TextAlign.center)
                 ),
               ),
 
@@ -130,7 +130,7 @@ class _ImplicitlyPageState extends State<ImplicitlyPage> {
                 width: MediaQuery.of(context).size.width * 0.6,
                 child: const ElevatedButton(
                   onPressed: null, ///In progress
-                  child: Text("AfAnimatedAlign")
+                  child: Text("AfAnimatedAlign", textAlign: TextAlign.center)
                 ),
               ),
 
@@ -140,7 +140,7 @@ class _ImplicitlyPageState extends State<ImplicitlyPage> {
                 width: MediaQuery.of(context).size.width * 0.6,
                 child: const ElevatedButton(
                   onPressed: null, ///In progress
-                  child: Text("AfAnimatedTransalte")
+                  child: Text("AfAnimatedTranslate", textAlign: TextAlign.center)
                 ),
               ),
 
@@ -150,7 +150,7 @@ class _ImplicitlyPageState extends State<ImplicitlyPage> {
                 width: MediaQuery.of(context).size.width * 0.6,
                 child: const ElevatedButton(
                   onPressed: null, ///In progress
-                  child: Text("AfAnimatedPositioned")
+                  child: Text("AfAnimatedPositioned", textAlign: TextAlign.center)
                 ),
               ),
 
@@ -160,7 +160,7 @@ class _ImplicitlyPageState extends State<ImplicitlyPage> {
                 width: MediaQuery.of(context).size.width * 0.6,
                 child: const ElevatedButton(
                   onPressed: null, ///In progress
-                  child: Text("AfAnimatedSizedBox")
+                  child: Text("AfAnimatedSizedBox", textAlign: TextAlign.center)
                 ),
               ),
 

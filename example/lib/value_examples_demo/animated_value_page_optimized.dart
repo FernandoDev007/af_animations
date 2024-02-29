@@ -1,9 +1,8 @@
 import 'dart:math';
 import 'dart:ui';
 
-import 'package:flutter/material.dart';
-
 import 'package:af_animations/af_animations.dart';
+import 'package:flutter/material.dart';
 
 
 class AfAnimatedValuePageOptimized extends StatefulWidget {
@@ -127,7 +126,7 @@ class _AfAnimatedValuePageOptimizedState extends State<AfAnimatedValuePageOptimi
                 child: Text(
                   " A color change is a widget rebuild, it may not seem like much, but in production applications, it's important to optimize everything. ",
                   textAlign: TextAlign.center,
-                  textScaleFactor: 0.75,
+                  style: TextStyle(fontSize: 11),
                 ),
               ).afShowRepaint(context),
             ],

@@ -67,7 +67,7 @@ class _AfBuilderPageOptimizedState extends State<AfBuilderPageOptimized> {
               child: const Text(
                 " A color change is a widget rebuild, it may not seem like much, but in production applications, it's important to optimize everything. ",
                 textAlign: TextAlign.center,
-                textScaleFactor: 0.75,
+                style: TextStyle(fontSize: 11),
               ).afShowRepaint(context),
             ),
           ],
