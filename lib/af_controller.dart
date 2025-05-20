@@ -128,8 +128,18 @@ class AfController {
   /// {@endtemplate}
   final bool showRepaint;
 
-  /// The list where all _AfWidgetState are stored to be updated later with AfAnimations.update.
-  final List<_AfWidgetState> _afWidgetStates = <_AfWidgetState>[];
+  /// Special ID for widgets without a specific ID
+  static const String _defaultIdKey = "default";
+  
+  /// The HashMap where all _AfWidgetState are stored grouped by ID
+  /// to be updated later with controller.update.
+  /// Using HashMap optimizes lookup operations to O(1) complexity.
+  /// 
+  /// DoubleLinkedQueue is used for each ID group for optimal performance
+  /// with add and remove operations during animation updates.
+  final HashMap<String, DoubleLinkedQueue<_AfWidgetState>> _afWidgetStatesMap = 
+      HashMap<String, DoubleLinkedQueue<_AfWidgetState>>();
+
 
   /// {@macro AfController_principalGetters}
   Duration getDuration() {
@@ -153,10 +163,27 @@ class AfController {
 
   /// {@macro AfController_allGetters}
   void update({List<String> ids = const <String>[""]}) {
-    for (_AfWidgetState afWidget in _afWidgetStates) {
-      if (ids.any((id) => afWidget.id == id)) {
-        if (afWidget.mounted()) {
-          afWidget.update();
+    // If no IDs are specified or an empty ID is used, update widgets without a specific ID
+    if (ids.isEmpty || (ids.length == 1 && ids[0].isEmpty)) {
+      final emptyIdWidgets = _afWidgetStatesMap[_defaultIdKey];
+      if (emptyIdWidgets != null) {
+        for (_AfWidgetState afWidget in emptyIdWidgets) {
+          if (afWidget.mounted()) {
+            afWidget.update();
+          }
+        }
+      }
+      return;
+    }
+
+    // Update widgets with specific IDs
+    for (String id in ids) {
+      final widgetsWithId = _afWidgetStatesMap[id];
+      if (widgetsWithId != null) {
+        for (_AfWidgetState afWidget in widgetsWithId) {
+          if (afWidget.mounted()) {
+            afWidget.update();
+          }
         }
       }
     }
@@ -168,7 +195,13 @@ class AfController {
   /// {@endtemplate}
   void _subscription(_AfWidgetState state) {
     _unsubscribeOnDisposedStates();
-    _afWidgetStates.add(state);
+    
+    final String idKey = state.id.isEmpty ? _defaultIdKey : state.id;
+    
+    // Initialize the queue for this ID if it doesn't exist
+    _afWidgetStatesMap[idKey] ??= DoubleLinkedQueue<_AfWidgetState>();
+    // Add the widget to the corresponding queue
+    _afWidgetStatesMap[idKey]!.add(state);
   }
 
   /// {@template AfController_unsubscribe}
@@ -176,15 +209,32 @@ class AfController {
   /// for [controller.update], thus freeing up some resources
   /// {@endtemplate}
   void _unsubscribe(_AfWidgetState state) {
-    _afWidgetStates
-        .removeWhere((afWidget) => afWidget.uniqueId == state.uniqueId);
+    final String idKey = state.id.isEmpty ? _defaultIdKey : state.id;
+    
+    // Get the queue for this ID
+    final DoubleLinkedQueue<_AfWidgetState>? widgetsWithId = _afWidgetStatesMap[idKey];
+    if (widgetsWithId != null) {
+      // Remove the specific widget from the queue
+      widgetsWithId.removeWhere((afWidget) => afWidget.uniqueId == state.uniqueId);
+      
+      // If the queue is empty, remove the entry from the map
+      if (widgetsWithId.isEmpty) {
+        _afWidgetStatesMap.remove(idKey);
+      }
+    }
   }
 
   /// Unsubscribe all _AfWidgetState for AfWidgets that are no longer displayed
   /// on the current screen. If they become visible again, they will be subscribed again.
   void _unsubscribeOnDisposedStates() {
-    _afWidgetStates.removeWhere(
-      (afWidget) => !afWidget.mounted(),
-    );
+    // Iterate over all entries in the map
+    _afWidgetStatesMap.forEach((id, widgetsQueue) {
+      widgetsQueue.removeWhere((afWidget) => !afWidget.mounted());
+    });
+    
+    // Remove entries with empty queues
+    _afWidgetStatesMap.removeWhere((_, widgetsQueue) => widgetsQueue.isEmpty);
   }
+
 }
+

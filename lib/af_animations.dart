@@ -1,5 +1,6 @@
 library af_animations;
 
+import 'dart:collection';
 import 'dart:math';
 
 import 'package:flutter/foundation.dart';
@@ -189,15 +190,29 @@ class AfAnimations extends StatefulWidget {
           "or you can replace it using AfController, which doesn't require context to function");
     }
 
-    List<_AfWidgetState> afWidgetStates = context
-        .findAncestorStateOfType<_AfAnimationsState>()!
-        .afWidgetStates
-        .toList();
+    final _AfAnimationsState state = context.findAncestorStateOfType<_AfAnimationsState>()!;
+    
+    // If no IDs are specified or an empty ID is used, update widgets without a specific ID
+    if (ids.isEmpty || (ids.length == 1 && ids[0].isEmpty)) {
+      final emptyIdWidgets = state.afWidgetStatesMap[_AfAnimationsState._defaultIdKey];
+      if (emptyIdWidgets != null) {
+        for (_AfWidgetState afWidget in emptyIdWidgets) {
+          if (afWidget.mounted()) {
+            afWidget.update();
+          }
+        }
+      }
+      return;
+    }
 
-    for (_AfWidgetState afWidget in afWidgetStates) {
-      if (ids.any((id) => afWidget.id == id)) {
-        if (afWidget.mounted()) {
-          afWidget.update();
+    // Update widgets with specific IDs
+    for (String id in ids) {
+      final widgetsWithId = state.afWidgetStatesMap[id];
+      if (widgetsWithId != null) {
+        for (_AfWidgetState afWidget in widgetsWithId) {
+          if (afWidget.mounted()) {
+            afWidget.update();
+          }
         }
       }
     }
@@ -211,10 +226,14 @@ class AfAnimations extends StatefulWidget {
     if (!existsAncestor(context)) return;
 
     _unsubscribeOnDisposedStates(context);
-    context
-        .findAncestorStateOfType<_AfAnimationsState>()!
-        .afWidgetStates
-        .add(state);
+    
+    final _AfAnimationsState animationsState = context.findAncestorStateOfType<_AfAnimationsState>()!;
+    final String idKey = state.id.isEmpty ? _AfAnimationsState._defaultIdKey : state.id;
+    
+    // Initialize the queue for this ID if it doesn't exist
+    animationsState.afWidgetStatesMap[idKey] ??= DoubleLinkedQueue<_AfWidgetState>();
+    // Add the widget to the corresponding queue
+    animationsState.afWidgetStatesMap[idKey]!.add(state);
   }
 
   /// {@template AfAnimations_unsubscribe}
@@ -224,21 +243,34 @@ class AfAnimations extends StatefulWidget {
   static void _unsubscribe(BuildContext context, _AfWidgetState state) {
     if (!existsAncestor(context)) return;
 
-    context
-        .findAncestorStateOfType<_AfAnimationsState>()!
-        .afWidgetStates
-        .removeWhere((afWidget) => afWidget.uniqueId == state.uniqueId);
+    final _AfAnimationsState animationsState = context.findAncestorStateOfType<_AfAnimationsState>()!;
+    final String idKey = state.id.isEmpty ? _AfAnimationsState._defaultIdKey : state.id;
+    
+    // Get the queue for this ID
+    final DoubleLinkedQueue<_AfWidgetState>? widgetsWithId = animationsState.afWidgetStatesMap[idKey];
+    if (widgetsWithId != null) {
+      // Remove the specific widget from the queue
+      widgetsWithId.removeWhere((afWidget) => afWidget.uniqueId == state.uniqueId);
+      
+      // If the queue is empty, remove the entry from the map
+      if (widgetsWithId.isEmpty) {
+        animationsState.afWidgetStatesMap.remove(idKey);
+      }
+    }
   }
 
   /// Unsubscribe all _AfWidgetState for AfWidgets that are no longer displayed
   /// on the current screen. If they become visible again, they will be subscribed again.
   static void _unsubscribeOnDisposedStates(BuildContext context) {
-    context
-        .findAncestorStateOfType<_AfAnimationsState>()!
-        .afWidgetStates
-        .removeWhere(
-          (afWidget) => !afWidget.mounted(),
-        );
+    final _AfAnimationsState animationsState = context.findAncestorStateOfType<_AfAnimationsState>()!;
+    
+    // Iterate over all entries in the map
+    animationsState.afWidgetStatesMap.forEach((id, widgetsQueue) {
+      widgetsQueue.removeWhere((afWidget) => !afWidget.mounted());
+    });
+    
+    // Remove entries with empty queues
+    animationsState.afWidgetStatesMap.removeWhere((_, widgetsQueue) => widgetsQueue.isEmpty);
   }
 
   @override
@@ -246,11 +278,20 @@ class AfAnimations extends StatefulWidget {
 }
 
 class _AfAnimationsState extends State<AfAnimations> {
-  /// The list where all _AfWidgetState are stored to be updated later with AfAnimations.update.
-  List<_AfWidgetState> afWidgetStates = <_AfWidgetState>[];
+
+  /// The HashMap where all _AfWidgetState are stored grouped by ID
+  /// to be updated later with AfAnimations.update.
+  /// Using HashMap optimizes lookup operations to O(1) complexity.
+  /// 
+  /// DoubleLinkedQueue is used for each ID group for optimal performance
+  /// with add and remove operations during animation updates.
+  final HashMap<String, DoubleLinkedQueue<_AfWidgetState>> afWidgetStatesMap = 
+      HashMap<String, DoubleLinkedQueue<_AfWidgetState>>();
+  
+  /// Special ID for widgets without a specific ID
+  static const String _defaultIdKey = "default";
 
   @override
-  Widget build(BuildContext context) {
-    return widget.child;
-  }
+  Widget build(BuildContext context) => widget.child;
+
 }
