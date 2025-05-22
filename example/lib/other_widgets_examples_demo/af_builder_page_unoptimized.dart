@@ -66,6 +66,22 @@ class _AfBuilderPageUnoptimizedState extends State<AfBuilderPageUnoptimized> wit
                 style: TextStyle(fontSize: 11),
               ).afShowRepaint(context),
             ),
+
+            const SizedBox(height: 20).afShowRepaint(context),
+              
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: const Text(
+                " Problems with this implementation:\n"
+                " • Calling setState rebuilds the entire widget tree\n"
+                " • No targeted updates to specific parts of the UI\n"
+                " • All widgets are repainted, even when only the counter changes\n"
+                " • Inefficient for complex UIs with multiple interactive elements\n"
+                " • Each state change causes unnecessary component rebuilds",
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 11),
+              ).afShowRepaint(context),
+            ),
           ],
         ).afShowRepaint(context),
       ),

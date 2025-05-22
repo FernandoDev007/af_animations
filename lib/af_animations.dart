@@ -14,6 +14,7 @@ part 'af_widget_state.dart';
 part 'extensions/widgets_extension.dart';
 part 'implicitly/animated_clip_rrect.dart';
 part 'other/builder.dart';
+part 'value/animated_composed.dart';
 part 'value/animated_secondary_value.dart';
 part 'value/animated_value.dart';
 

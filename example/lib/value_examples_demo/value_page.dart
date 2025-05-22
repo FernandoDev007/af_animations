@@ -86,9 +86,27 @@ class _ValuePageState extends State<ValuePage> {
 
               SizedBox(
                 width: MediaQuery.of(context).size.width * 0.6,
-                child: const ElevatedButton(
-                  onPressed: null, ///In progress
-                  child: Text("AfAnimatedTertiaryValue", textAlign: TextAlign.center)
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => SelectExampleTypePage(
+                          title: "AfAnimatedComposed Demo",
+                          description: "Combines multiple values into a single animation by interpolating each value independently,"
+                            " the most powerful and flexible animation widget",
+                          titleOptimizeVersion: "Using AfAnimatedComposed",
+                          onTapOptimizedVersion: () {
+                            Navigator.of(context).pushNamed("/animated_composed_page_optimized");
+                          },
+                          titleUnoptimizeVersion: "Without using AfAnimatedComposed",
+                          onTapUnoptimizeVersion: () {
+                            Navigator.of(context).pushNamed("/animated_composed_page_unoptimized");
+                          },
+                        )
+                      )
+                    );
+                  },
+                  child: const Text("AfAnimatedComposed", textAlign: TextAlign.center)
                 ),
               ),
 

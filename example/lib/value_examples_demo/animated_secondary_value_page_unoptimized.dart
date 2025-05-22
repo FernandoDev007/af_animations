@@ -170,11 +170,16 @@ class _AfAnimatedSecondaryValuePageUnoptimizedState extends State<AfAnimatedSeco
               ).afShowRepaint(context),
 
               const SizedBox(height: 20).afShowRepaint(context),
-
+              
               const Padding(
                 padding: EdgeInsets.all(4.0),
                 child: Text(
-                  " A color change is a widget rebuild, it may not seem like much, but in production applications, it's important to optimize everything. ",
+                  " Problems with this implementation:\n"
+                  " • Multiple animation controllers for a single component\n"
+                  " • Multiple setState calls causing unnecessary rebuilds\n"
+                  " • Complex animations sequence with manual futures and delays\n"
+                  " • Higher memory usage with multiple controllers\n"
+                  " • Difficult to maintain and synchronize animations",
                   textAlign: TextAlign.center,
                   style: TextStyle(fontSize: 11),
                 ),

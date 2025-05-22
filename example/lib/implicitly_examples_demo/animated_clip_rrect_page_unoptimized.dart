@@ -134,6 +134,22 @@ class _AfAnimatedClipRRectPageUnoptimizedState extends State<AfAnimatedClipRRect
                   style: TextStyle(fontSize: 11),
                 ),
               ).afShowRepaint(context),
+
+              const SizedBox(height: 20).afShowRepaint(context),
+              
+              const Padding(
+                padding: EdgeInsets.all(4.0),
+                child: Text(
+                  " Problems with this implementation:\n"
+                  " • Manual animation of ClipRRect borderRadius\n"
+                  " • Using setState in AnimationController listener rebuilds entire widget tree\n"
+                  " • No benefit from Flutter's implicit animations system\n"
+                  " • Inefficient widget structure\n"
+                  " • Not reusable without significant refactoring",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 11),
+                ),
+              ).afShowRepaint(context),
             ],
           ).afShowRepaint(context),
         ),

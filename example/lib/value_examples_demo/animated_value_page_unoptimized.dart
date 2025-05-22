@@ -149,7 +149,12 @@ class _AfAnimatedValuePageUnoptimizedState extends State<AfAnimatedValuePageUnop
               const Padding(
                 padding: EdgeInsets.all(4.0),
                 child: Text(
-                  " A color change is a widget rebuild, it may not seem like much, but in production applications, it's important to optimize everything. ",
+                  " Problems with this implementation:\n"
+                  " • Using setState in AnimationController listener causes full widget rebuilds\n"
+                  " • Inefficient animation of multiple properties at once\n"
+                  " • Manual animation interpolation with lerpDouble\n"
+                  " • No separation between animation logic and UI\n"
+                  " • Less reusable animation code",
                   textAlign: TextAlign.center,
                   style: TextStyle(fontSize: 11),
                 ),
