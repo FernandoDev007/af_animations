@@ -9,6 +9,10 @@ import 'package:af_animations_example/property_animations_examples/animated_comp
 import 'package:af_animations_example/property_animations_examples/animated_opacity/animated_opacity_page_optimized.dart';
 import 'package:af_animations_example/property_animations_examples/animated_opacity/animated_opacity_page_unoptimized.dart';
 import 'package:af_animations_example/property_animations_examples/animated_secondary_value/animated_secondary_value_page_optimized.dart';
+import 'package:af_animations_example/property_animations_examples/animated_size/animated_size_page_optimized.dart';
+import 'package:af_animations_example/property_animations_examples/animated_size/animated_size_page_unoptimized.dart';
+import 'package:af_animations_example/utility_widgets_examples/builder/builder_page_optimized.dart' as builder_pages;
+import 'package:af_animations_example/utility_widgets_examples/builder/builder_page_unoptimized.dart' as builder_pages;
 import 'package:flutter/material.dart';
 
 void main() => runApp(const MyApp());
@@ -58,6 +62,8 @@ class _MyAppState extends State<MyApp> {
           "/animated_color_page_unoptimized" : (context) => const AfAnimatedColorPageUnoptimized(),
           "/animated_opacity_page_optimized" : (context) => const AfAnimatedOpacityPageOptimized(),
           "/animated_opacity_page_unoptimized" : (context) => const AfAnimatedOpacityPageUnoptimized(),
+          "/animated_size_page_optimized" : (context) => const AfAnimatedSizePageOptimized(),
+          "/animated_size_page_unoptimized" : (context) => const AfAnimatedSizePageUnoptimized(),
 
           /// Layout Animations
           "/layout_animations" : (context) => const LayoutAnimationsPage(),
@@ -66,8 +72,8 @@ class _MyAppState extends State<MyApp> {
 
           /// Utility Widgets
           "/utility_widgets" : (context) => const UtilityWidgetsPage(),
-          "/builder_page_optimized" : (context) => const AfBuilderPageOptimized(),
-          "/builder_page_unoptimized" : (context) => const AfBuilderPageUnoptimized(),
+          "/builder_page_optimized" : (context) => const builder_pages.AfBuilderPageOptimized(),
+          "/builder_page_unoptimized" : (context) => const builder_pages.AfBuilderPageUnoptimized(),
 
           /// Effect Animations
           "/effect_animations" : (context) => const EffectAnimationsPage(),

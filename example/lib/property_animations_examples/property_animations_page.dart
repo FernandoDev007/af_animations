@@ -171,9 +171,27 @@ class _PropertyAnimationsPageState extends State<PropertyAnimationsPage> {
         
                 SizedBox(
                   width: MediaQuery.of(context).size.width * 0.6,
-                  child: const ElevatedButton(
-                    onPressed: null, ///In progress
-                    child: Text("AfAnimatedSize", textAlign: TextAlign.center)
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => SelectExampleTypePage(
+                            title: "AfAnimatedSize Demo",
+                            description: "Animating width and height values by interpolating to the new size, "
+                              "providing smooth transitions for resizing containers, images, or any widget",
+                            titleUnoptimizeVersion: "Without using AfAnimatedSize",
+                            onTapUnoptimizeVersion: () {
+                              Navigator.of(context).pushNamed("/animated_size_page_unoptimized");
+                            },
+                            titleOptimizeVersion: "Using AfAnimatedSize",
+                            onTapOptimizedVersion: () {
+                              Navigator.of(context).pushNamed("/animated_size_page_optimized");
+                            },
+                          )
+                        )
+                      );
+                    },
+                    child: const Text("AfAnimatedSize", textAlign: TextAlign.center)
                   ),
                 ),
         
