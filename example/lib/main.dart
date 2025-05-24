@@ -2,11 +2,11 @@ import 'dart:ui';
 
 import 'package:af_animations/af_animations.dart';
 import 'package:af_animations_example/home_page.dart';
-import 'package:af_animations_example/value_examples_demo/animated_color_page_optimized.dart';
-import 'package:af_animations_example/value_examples_demo/animated_color_page_unoptimized.dart';
-import 'package:af_animations_example/value_examples_demo/animated_composed_page_optimized.dart';
-import 'package:af_animations_example/value_examples_demo/animated_composed_page_unoptimized.dart';
-import 'package:af_animations_example/value_examples_demo/animated_secondary_value_page_optimized.dart';
+import 'package:af_animations_example/property_animations_examples/animated_color/animated_color_page_optimized.dart';
+import 'package:af_animations_example/property_animations_examples/animated_color/animated_color_page_unoptimized.dart';
+import 'package:af_animations_example/property_animations_examples/animated_composed/animated_composed_page_optimized.dart';
+import 'package:af_animations_example/property_animations_examples/animated_composed/animated_composed_page_unoptimized.dart';
+import 'package:af_animations_example/property_animations_examples/animated_secondary_value/animated_secondary_value_page_optimized.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(const MyApp());
@@ -44,8 +44,8 @@ class _MyAppState extends State<MyApp> {
         routes: {
           "/home" : (context) => const HomePage(),
 
-          /// Value Animations
-          "/value_demo" : (context) => const ValuePage(),
+          /// Property Animations
+          "/property_animations" : (context) => const PropertyAnimationsPage(),
           "/animated_value_page_optimized" : (context) => const AfAnimatedValuePageOptimized(),
           "/animated_value_page_unoptimized" : (context) => const AfAnimatedValuePageUnoptimized(),
           "/animated_secondary_value_page_optimized" : (context) => const AfAnimatedSecondaryValuePageOptimized(),
@@ -55,15 +55,24 @@ class _MyAppState extends State<MyApp> {
           "/animated_color_page_optimized" : (context) => const AfAnimatedColorPageOptimized(),
           "/animated_color_page_unoptimized" : (context) => const AfAnimatedColorPageUnoptimized(),
 
-          /// Implicitly Animations
-          "/implicitly_demo" : (context) => const ImplicitlyPage(),
+          /// Layout Animations
+          "/layout_animations" : (context) => const LayoutAnimationsPage(),
           "/animated_clip_rrect_page_optimized" : (context) => const AfAnimatedClipRRectPageOptimized(),
           "/animated_clip_rrect_page_unoptimized" : (context) => const AfAnimatedClipRRectPageUnoptimized(),
 
-          /// Other widgets
-          "/other_widgets_demo" : (context) => const OtherWidgetsPage(),
+          /// Utility Widgets
+          "/utility_widgets" : (context) => const UtilityWidgetsPage(),
           "/builder_page_optimized" : (context) => const AfBuilderPageOptimized(),
           "/builder_page_unoptimized" : (context) => const AfBuilderPageUnoptimized(),
+
+          /// Effect Animations
+          "/effect_animations" : (context) => const EffectAnimationsPage(),
+
+          /// Transition Animations
+          "/transition_animations" : (context) => const TransitionAnimationsPage(),
+
+          /// Sequence Animations  
+          "/sequence_animations" : (context) => const SequenceAnimationsPage(),
         },
         scrollBehavior: const ScrollBehavior().copyWith(
           dragDevices: PointerDeviceKind.values.toSet(),

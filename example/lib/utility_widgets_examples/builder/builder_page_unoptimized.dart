@@ -77,7 +77,7 @@ class _AfBuilderPageUnoptimizedState extends State<AfBuilderPageUnoptimized> wit
                 " • No targeted updates to specific parts of the UI\n"
                 " • All widgets are repainted, even when only the counter changes\n"
                 " • Inefficient for complex UIs with multiple interactive elements\n"
-                " • Each state change causes unnecessary component rebuilds",
+                " • Each state change causes unnecessary widget rebuilds",
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 11),
               ).afShowRepaint(context),

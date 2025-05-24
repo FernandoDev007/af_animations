@@ -175,7 +175,7 @@ class _AfAnimatedSecondaryValuePageUnoptimizedState extends State<AfAnimatedSeco
                 padding: EdgeInsets.all(4.0),
                 child: Text(
                   " Problems with this implementation:\n"
-                  " • Multiple animation controllers for a single component\n"
+                  " • Multiple animation controllers for a single widget\n"
                   " • Multiple setState calls causing unnecessary rebuilds\n"
                   " • Complex animations sequence with manual futures and delays\n"
                   " • Higher memory usage with multiple controllers\n"

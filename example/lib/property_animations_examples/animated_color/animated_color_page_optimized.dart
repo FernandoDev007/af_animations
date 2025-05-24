@@ -77,7 +77,7 @@ class _AfAnimatedColorPageOptimizedState extends State<AfAnimatedColorPageOptimi
                         borderRadius: BorderRadius.circular(16),
                         boxShadow: [
                           BoxShadow(
-                            color: color.withOpacity(0.5),
+                            color: color.withValues(alpha: 0.5),
                             blurRadius: 10,
                             offset: const Offset(0, 4),
                           ),

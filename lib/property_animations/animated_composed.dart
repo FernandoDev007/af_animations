@@ -127,8 +127,8 @@ class _AfAnimatedComposedState extends _AfWidget<AfAnimatedComposed> {
       values: values,
       curves: widget.curves,
       builder: widget.builder,
-      duration: widget.duration ?? AfAnimations.getDuration(context),
-      curve: widget.curve ?? AfAnimations.getCurve(context),
+      duration: widget.duration ?? widget.controller?.duration ?? AfAnimations.getDuration(context),
+      curve: widget.curve ?? widget.controller?.curve ?? AfAnimations.getCurve(context),
       onEnd: () {
         widget.onEnd?.call();
         AfAnimations.callOnEnd(context);
@@ -221,7 +221,7 @@ class __AfAnimatedComposedState extends AnimatedWidgetBaseState<_AfAnimatedCompo
       // Use curve-specific animation if available
       final Animation<double> curveAnimation = widget.curves != null && i < widget.curves!.length
           ? CurvedAnimation(parent: animation, curve: widget.curves![i])
-          : animation;
+          : CurvedAnimation(parent: animation, curve: widget.curve);
           
       animatedValues[i] = _valueTweens[i]?.evaluate(curveAnimation) ?? 0.0;
     }

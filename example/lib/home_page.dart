@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 
-export 'package:af_animations_example/implicitly_examples_demo/animated_clip_rrect_page_optimized.dart';
-export 'package:af_animations_example/implicitly_examples_demo/animated_clip_rrect_page_unoptimized.dart';
-export 'package:af_animations_example/implicitly_examples_demo/implicitly_page.dart';
-export 'package:af_animations_example/other_widgets_examples_demo/af_builder_page_optimized.dart';
-export 'package:af_animations_example/other_widgets_examples_demo/af_builder_page_unoptimized.dart';
-export 'package:af_animations_example/other_widgets_examples_demo/other_widgets_page.dart';
-export 'package:af_animations_example/value_examples_demo/animated_secondary_value_page_unoptimized.dart';
-export 'package:af_animations_example/value_examples_demo/animated_value_page_optimized.dart';
-export 'package:af_animations_example/value_examples_demo/animated_value_page_unoptimized.dart';
-export 'package:af_animations_example/value_examples_demo/value_page.dart';
+export 'package:af_animations_example/effect_animations_examples/effect_animations_page.dart';
+export 'package:af_animations_example/layout_animations_examples/animated_clip_rrect/animated_clip_rrect_page_optimized.dart';
+export 'package:af_animations_example/layout_animations_examples/animated_clip_rrect/animated_clip_rrect_page_unoptimized.dart';
+export 'package:af_animations_example/layout_animations_examples/layout_animations_page.dart';
+export 'package:af_animations_example/property_animations_examples/animated_secondary_value/animated_secondary_value_page_unoptimized.dart';
+export 'package:af_animations_example/property_animations_examples/animated_value/animated_value_page_optimized.dart';
+export 'package:af_animations_example/property_animations_examples/animated_value/animated_value_page_unoptimized.dart';
+export 'package:af_animations_example/property_animations_examples/property_animations_page.dart';
+export 'package:af_animations_example/sequence_animations_examples/sequence_animations_page.dart';
+export 'package:af_animations_example/transition_animations_examples/transition_animations_page.dart';
+export 'package:af_animations_example/utility_widgets_examples/builder/builder_page_optimized.dart';
+export 'package:af_animations_example/utility_widgets_examples/builder/builder_page_unoptimized.dart';
+export 'package:af_animations_example/utility_widgets_examples/utility_widgets_page.dart';
 
 
 class HomePage extends StatefulWidget {
@@ -38,73 +41,109 @@ class _HomePageState extends State<HomePage> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const SizedBox(height: 20),
+              const SizedBox(height: 30),
 
+              // Property Animations
               SizedBox(
-                width: MediaQuery.of(context).size.width * 0.6,
+                width: MediaQuery.of(context).size.width * 0.7,
                 child: ElevatedButton(
                   onPressed: () {
-                    Navigator.of(context).pushNamed("/value_demo");
+                    Navigator.of(context).pushNamed("/property_animations");
                   },
-                  child: const Text("Value Animations", textAlign: TextAlign.center)
+                  child: const Text(
+                    "🎯 Property Animations\nAnimate specific widget properties",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 14)
+                  )
                 ),
               ),
 
               const SizedBox(height: 15),
 
+              // Layout Animations
               SizedBox(
-                width: MediaQuery.of(context).size.width * 0.6,
+                width: MediaQuery.of(context).size.width * 0.7,
                 child: ElevatedButton(
                   onPressed: () {
-                    Navigator.of(context).pushNamed("/implicitly_demo");
+                    Navigator.of(context).pushNamed("/layout_animations");
                   },
-                  child: const Text("Implicitly Animations", textAlign: TextAlign.center)
+                  child: const Text(
+                    "🏗️ Layout Animations\nAnimate layout and structure changes",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 14)
+                  )
                 ),
               ),
 
               const SizedBox(height: 15),
 
+              // Effect Animations
               SizedBox(
-                width: MediaQuery.of(context).size.width * 0.6,
-                child: const ElevatedButton(
-                  onPressed: null, ///In progress
-                  child: Text("Interval Animations", textAlign: TextAlign.center)
-                ),
-              ),
-
-              const SizedBox(height: 15),
-
-              SizedBox(
-                width: MediaQuery.of(context).size.width * 0.6,
-                child: const ElevatedButton(
-                  onPressed: null, ///In progress
-                  child: Text("Simple Animations", textAlign: TextAlign.center)
-                ),
-              ),
-
-              const SizedBox(height: 15),
-
-              SizedBox(
-                width: MediaQuery.of(context).size.width * 0.6,
-                child: const ElevatedButton(
-                  onPressed: null, ///In progress
-                  child: Text("Navigation Animations", textAlign: TextAlign.center)
-                ),
-              ),
-
-              const SizedBox(height: 25),
-
-              SizedBox(
-                width: MediaQuery.of(context).size.width * 0.6,
+                width: MediaQuery.of(context).size.width * 0.7,
                 child: ElevatedButton(
                   onPressed: () {
-                    Navigator.of(context).pushNamed("/other_widgets_demo");
+                    Navigator.of(context).pushNamed("/effect_animations");
                   },
-                  child: const Text("Other Widgets", textAlign: TextAlign.center)
+                  child: const Text(
+                    "✨ Effect Animations\nSimple entrance and exit effects",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 14)
+                  )
                 ),
               ),
 
-              const SizedBox(height: 20),
+              const SizedBox(height: 15),
+
+              // Transition Animations
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.7,
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).pushNamed("/transition_animations");
+                  },
+                  child: const Text(
+                    "↔️ Transition Animations\nAnimate between screens",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 14)
+                  )
+                ),
+              ),
+
+              const SizedBox(height: 15),
+
+              // Sequence Animations
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.7,
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).pushNamed("/sequence_animations");
+                  },
+                  child: const Text(
+                    "🎬 Sequence Animations\nComplex and sequential animations",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 14)
+                  )
+                ),
+              ),
+
+              const SizedBox(height: 15),
+
+              // Utility Widgets
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.7,
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).pushNamed("/utility_widgets");
+                  },
+                  child: const Text(
+                    "🔧 Utility Widgets\nTools and helpers",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 14)
+                  )
+                ),
+              ),
+
+              const SizedBox(height: 30),
             ],
           ),
         )

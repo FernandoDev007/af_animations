@@ -59,7 +59,7 @@ class _SelectExampleTypePageState extends State<SelectExampleTypePage> {
                 child: ElevatedButton(
                   onPressed: widget.onTapUnoptimizeVersion,
                   style: const ButtonStyle(
-                    backgroundColor: MaterialStatePropertyAll(Colors.white)
+                    backgroundColor: WidgetStatePropertyAll(Colors.white)
                   ),
                   child: Text(
                     widget.titleUnoptimizeVersion ?? "Unoptimized version",

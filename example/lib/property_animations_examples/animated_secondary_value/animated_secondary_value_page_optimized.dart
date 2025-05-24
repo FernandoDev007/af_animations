@@ -62,7 +62,10 @@ class _AfAnimatedSecondaryValuePageOptimizedState extends State<AfAnimatedSecond
                     } else {
                       animateText = true;
                     }
-                    AfAnimations.update(context, ids: ["AfAnimatedSecondaryValue Optimized Demo"]);
+                    if (mounted) {
+                      // ignore: use_build_context_synchronously
+                      AfAnimations.update(context, ids: ["AfAnimatedSecondaryValue Optimized Demo"]);
+                    }
                   });
                 },
                 child: AfAnimatedSecondaryValue(

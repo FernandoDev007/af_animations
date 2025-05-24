@@ -131,8 +131,8 @@ class _AfAnimatedClipRRectState extends _AfWidget<AfAnimatedClipRRect> {
   Widget build(BuildContext context) {
     return _AfAnimatedClipRRect(
       controller: controller,
-      duration: widget.duration ?? AfAnimations.getDuration(context),
-      curve: widget.curve ?? AfAnimations.getCurve(context),
+      duration: widget.duration ?? widget.controller?.duration ?? AfAnimations.getDuration(context),
+      curve: widget.curve ?? widget.controller?.curve ?? AfAnimations.getCurve(context),
       borderRadius: _borderRadius,
       clipBehavior: widget.clipBehavior,
       clipper: widget.clipper,

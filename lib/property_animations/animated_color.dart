@@ -117,8 +117,8 @@ class _AfAnimatedColorState extends _AfWidget<AfAnimatedColor> {
       controller: controller,
       color: color,
       builder: widget.builder,
-      duration: widget.duration ?? AfAnimations.getDuration(context),
-      curve: widget.curve ?? AfAnimations.getCurve(context),
+      duration: widget.duration ?? widget.controller?.duration ?? AfAnimations.getDuration(context),
+      curve: widget.curve ?? widget.controller?.curve ?? AfAnimations.getCurve(context),
       onEnd: () {
         widget.onEnd?.call();
         AfAnimations.callOnEnd(context);
