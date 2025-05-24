@@ -255,9 +255,27 @@ class _PropertyAnimationsPageState extends State<PropertyAnimationsPage> {
         
                 SizedBox(
                   width: MediaQuery.of(context).size.width * 0.6,
-                  child: const ElevatedButton(
-                    onPressed: null, ///In progress
-                    child: Text("AfAnimatedScale", textAlign: TextAlign.center)
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => SelectExampleTypePage(
+                            title: "AfAnimatedScale Demo",
+                            description: "Animating scale values by interpolating to the new scale factor, "
+                              "providing smooth zoom and scaling transitions using Transform.scale without affecting layout",
+                            titleUnoptimizeVersion: "Without using AfAnimatedScale",
+                            onTapUnoptimizeVersion: () {
+                              Navigator.of(context).pushNamed("/animated_scale_page_unoptimized");
+                            },
+                            titleOptimizeVersion: "Using AfAnimatedScale",
+                            onTapOptimizedVersion: () {
+                              Navigator.of(context).pushNamed("/animated_scale_page_optimized");
+                            },
+                          )
+                        )
+                      );
+                    },
+                    child: const Text("AfAnimatedScale", textAlign: TextAlign.center)
                   ),
                 ),
         

@@ -1,31 +1,29 @@
-import 'dart:math' as math;
-
 import 'package:af_animations/af_animations.dart';
 import 'package:flutter/material.dart';
 
-class AfAnimatedRotationPageUnoptimized extends StatefulWidget {
-  const AfAnimatedRotationPageUnoptimized({
+class AfAnimatedScalePageUnoptimized extends StatefulWidget {
+  const AfAnimatedScalePageUnoptimized({
     super.key,
   });
 
   @override
-  State<AfAnimatedRotationPageUnoptimized> createState() => _AfAnimatedRotationPageUnoptimizedState();
+  State<AfAnimatedScalePageUnoptimized> createState() => _AfAnimatedScalePageUnoptimizedState();
 }
 
-class _AfAnimatedRotationPageUnoptimizedState extends State<AfAnimatedRotationPageUnoptimized> with SingleTickerProviderStateMixin {
+class _AfAnimatedScalePageUnoptimizedState extends State<AfAnimatedScalePageUnoptimized> with SingleTickerProviderStateMixin {
 
   late AnimationController controller;
-  late Animation<double> rotationAnimation;
+  late Animation<double> scaleAnimation;
   
-  double currentAngle = 0.0;
+  double currentScale = 1.0;
   int currentStep = 0;
   
-  final List<double> angles = [
-    0.0,                    // 0 degrees
-    math.pi / 2,           // 90 degrees
-    math.pi,               // 180 degrees
-    3 * math.pi / 2,       // 270 degrees
-    2 * math.pi,           // 360 degrees (full rotation)
+  final List<double> scales = [
+    1.0,    // Normal size
+    1.5,    // 150% size
+    0.7,    // 70% size
+    2.0,    // Double size
+    0.5,    // Half size
   ];
 
   @override
@@ -37,22 +35,22 @@ class _AfAnimatedRotationPageUnoptimizedState extends State<AfAnimatedRotationPa
       duration: const Duration(milliseconds: 500),
     );
     
-    _updateRotationAnimation();
+    _updateScaleAnimation();
 
     // Bad practice: Using setState in the animation listener
     // causes the entire widget tree to rebuild on every frame
     controller.addListener(() {
       setState(() {
         // This forces a rebuild of the entire widget tree
-        // instead of just updating the rotation
+        // instead of just updating the scale
       });
     });
   }
 
-  void _updateRotationAnimation() {
-    rotationAnimation = Tween<double>(
-      begin: currentAngle,
-      end: angles[currentStep],
+  void _updateScaleAnimation() {
+    scaleAnimation = Tween<double>(
+      begin: currentScale,
+      end: scales[currentStep],
     ).animate(
       CurvedAnimation(
         parent: controller,
@@ -61,19 +59,18 @@ class _AfAnimatedRotationPageUnoptimizedState extends State<AfAnimatedRotationPa
     );
   }
 
-  void _toggleRotation() {
-    // Update the target angle manually
-    currentStep = (currentStep + 1) % angles.length;
-    currentAngle = rotationAnimation.value;
+  void _toggleScale() {
+    // Update the target scale manually
+    currentStep = (currentStep + 1) % scales.length;
+    currentScale = scaleAnimation.value;
     
-    // Recreate the animation with new angle values
-    _updateRotationAnimation();
+    // Recreate the animation with new scale values
+    _updateScaleAnimation();
     
     // Reset and restart the animation
     controller.reset();
     controller.forward();
   }
-
   @override
   void dispose() {
     controller.dispose();
@@ -82,7 +79,7 @@ class _AfAnimatedRotationPageUnoptimizedState extends State<AfAnimatedRotationPa
 
   @override
   Widget build(BuildContext context) {
-    final double animatedAngle = rotationAnimation.value;
+    final double animatedScale = scaleAnimation.value;
     
     return Scaffold(
       appBar: PreferredSize(
@@ -90,7 +87,7 @@ class _AfAnimatedRotationPageUnoptimizedState extends State<AfAnimatedRotationPa
         child: AppBar(
           title: const Padding(
             padding: EdgeInsets.all(3.0),
-            child: Text(" Without AfAnimatedRotation Demo "),
+            child: Text(" Without AfAnimatedScale Demo "),
           ).afShowRepaint(context),
           centerTitle: true,
           leading: IconButton(
@@ -108,7 +105,7 @@ class _AfAnimatedRotationPageUnoptimizedState extends State<AfAnimatedRotationPa
               const Padding(
                 padding: EdgeInsets.all(4.0),
                 child: Text(
-                  " Without using AfAnimatedRotation, poor animation practices are employed in this rotation animation. ",
+                  " Without using AfAnimatedScale, poor animation practices are employed in this scale animation. ",
                   textAlign: TextAlign.center,
                 ),
               ).afShowRepaint(context),
@@ -116,16 +113,20 @@ class _AfAnimatedRotationPageUnoptimizedState extends State<AfAnimatedRotationPa
               const SizedBox(height: 30).afShowRepaint(context),
 
               GestureDetector(
-                onTap: _toggleRotation,
-                child: SizedBox(
+                onTap: _toggleScale,
+                child: Container(
                   width: 200,
-                  height: 150,
+                  height: 200,
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.grey.shade300, width: 2),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
                   child: Center(
-                    child: Transform.rotate(
-                      angle: animatedAngle,
+                    child: Transform.scale(
+                      scale: animatedScale,
                       child: Container(
-                        width: 200,
-                        height: 150,
+                        width: 100,
+                        height: 100,
                         decoration: BoxDecoration(
                           color: Theme.of(context).colorScheme.primary,
                           borderRadius: BorderRadius.circular(12),
@@ -144,7 +145,7 @@ class _AfAnimatedRotationPageUnoptimizedState extends State<AfAnimatedRotationPa
                       ).afShowRepaint(context),
                     ),
                   ),
-                ),
+                ).afShowRepaint(context),
               ),
 
               const SizedBox(height: 30).afShowRepaint(context),
@@ -152,10 +153,10 @@ class _AfAnimatedRotationPageUnoptimizedState extends State<AfAnimatedRotationPa
               SizedBox(
                 width: MediaQuery.of(context).size.width * 0.6,
                 child: ElevatedButton(
-                  onPressed: _toggleRotation,
+                  onPressed: _toggleScale,
                   child: const Padding(
                     padding: EdgeInsets.all(3.0),
-                    child: Text(" Animate Rotation "),
+                    child: Text(" Animate Scale "),
                   ).afShowRepaint(context),
                 ),
               ).afShowRepaint(context),
@@ -167,11 +168,11 @@ class _AfAnimatedRotationPageUnoptimizedState extends State<AfAnimatedRotationPa
                 child: Text(
                   " Problems with this implementation:\n"
                   " • Using setState in AnimationController listener causes unnecessary rebuilds\n"
-                  " • Manual creation and update of rotation Tween animation\n"
+                  " • Manual creation and update of scale Tween animation\n"
                   " • Rebuilding the entire widget tree on every animation frame\n" 
-                  " • Inefficient handling of rotation transitions\n"
+                  " • Inefficient handling of scale transitions\n"
                   " • Manual management of AnimationController lifecycle\n"
-                  " • Complex state management for angle values\n"
+                  " • Complex state management for scale values\n"
                   " • Difficult to reuse in other parts of the application",
                   textAlign: TextAlign.center,
                   style: TextStyle(fontSize: 11),

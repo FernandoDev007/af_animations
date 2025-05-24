@@ -18,6 +18,7 @@ part 'property_animations/animated_composed.dart';
 part 'property_animations/animated_offset.dart';
 part 'property_animations/animated_opacity.dart';
 part 'property_animations/animated_rotation.dart';
+part 'property_animations/animated_scale.dart';
 part 'property_animations/animated_secondary_value.dart';
 part 'property_animations/animated_size.dart';
 part 'property_animations/animated_value.dart';
