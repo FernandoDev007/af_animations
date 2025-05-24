@@ -2,6 +2,8 @@ import 'dart:ui';
 
 import 'package:af_animations/af_animations.dart';
 import 'package:af_animations_example/home_page.dart';
+import 'package:af_animations_example/property_animations_examples/animated_box_decoration/animated_box_decoration_page_optimized.dart';
+import 'package:af_animations_example/property_animations_examples/animated_box_decoration/animated_box_decoration_page_unoptimized.dart';
 import 'package:af_animations_example/property_animations_examples/animated_color/animated_color_page_optimized.dart';
 import 'package:af_animations_example/property_animations_examples/animated_color/animated_color_page_unoptimized.dart';
 import 'package:af_animations_example/property_animations_examples/animated_composed/animated_composed_page_optimized.dart';
@@ -76,6 +78,8 @@ class _MyAppState extends State<MyApp> {
           "/animated_rotation_page_unoptimized" : (context) => const AfAnimatedRotationPageUnoptimized(),
           "/animated_scale_page_optimized" : (context) => const AfAnimatedScalePageOptimized(),
           "/animated_scale_page_unoptimized" : (context) => const AfAnimatedScalePageUnoptimized(),
+          "/animated_box_decoration_page_optimized" : (context) => const AfAnimatedBoxDecorationPageOptimized(),
+          "/animated_box_decoration_page_unoptimized" : (context) => const AfAnimatedBoxDecorationPageUnoptimized(),
 
           /// Layout Animations
           "/layout_animations" : (context) => const LayoutAnimationsPage(),

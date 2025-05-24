@@ -13,6 +13,7 @@ part 'af_widget_on.dart';
 part 'af_widget_state.dart';
 part 'extensions/widgets_extension.dart';
 part 'layout_animations/animated_clip_rrect.dart';
+part 'property_animations/animated_box_decoration.dart';
 part 'property_animations/animated_color.dart';
 part 'property_animations/animated_composed.dart';
 part 'property_animations/animated_offset.dart';

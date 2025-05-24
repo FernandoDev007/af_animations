@@ -283,9 +283,27 @@ class _PropertyAnimationsPageState extends State<PropertyAnimationsPage> {
         
                 SizedBox(
                   width: MediaQuery.of(context).size.width * 0.6,
-                  child: const ElevatedButton(
-                    onPressed: null, ///In progress
-                    child: Text("AfAnimatedBoxDecoration", textAlign: TextAlign.center)
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => SelectExampleTypePage(
+                            title: "AfAnimatedBoxDecoration Demo",
+                            description: "Animating BoxDecoration properties by interpolating to the new decoration, "
+                              "providing smooth transitions for colors, gradients, borders, shadows, and border radius using DecorationTween",
+                            titleUnoptimizeVersion: "Without using AfAnimatedBoxDecoration",
+                            onTapUnoptimizeVersion: () {
+                              Navigator.of(context).pushNamed("/animated_box_decoration_page_unoptimized");
+                            },
+                            titleOptimizeVersion: "Using AfAnimatedBoxDecoration",
+                            onTapOptimizedVersion: () {
+                              Navigator.of(context).pushNamed("/animated_box_decoration_page_optimized");
+                            },
+                          )
+                        )
+                      );
+                    },
+                    child: const Text("AfAnimatedBoxDecoration", textAlign: TextAlign.center)
                   ),
                 ),
         
