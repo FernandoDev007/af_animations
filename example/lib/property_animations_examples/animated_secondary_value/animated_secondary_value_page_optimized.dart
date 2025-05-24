@@ -79,7 +79,7 @@ class _AfAnimatedSecondaryValuePageOptimizedState extends State<AfAnimatedSecond
                           170,
                           min(MediaQuery.of(context).size.width, 270),
                           value),
-                      color: Colors.red,
+                      color: Theme.of(context).colorScheme.primary,
                       child: Center(
                         child: Padding(
                           padding: const EdgeInsets.all(10.0),
@@ -89,7 +89,7 @@ class _AfAnimatedSecondaryValuePageOptimizedState extends State<AfAnimatedSecond
                               scale: secondaryValue + 1,
                               child: const Text(
                                 "Example content of the widget",
-                                style: TextStyle(color: Colors.black),
+                                style: TextStyle(color: Colors.grey),
                                 textAlign: TextAlign.center,
                               ),
                             ),

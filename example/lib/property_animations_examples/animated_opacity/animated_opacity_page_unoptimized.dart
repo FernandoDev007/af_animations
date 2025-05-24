@@ -1,32 +1,22 @@
 import 'package:af_animations/af_animations.dart';
 import 'package:flutter/material.dart';
 
-class AfAnimatedColorPageUnoptimized extends StatefulWidget {
-  const AfAnimatedColorPageUnoptimized({
+class AfAnimatedOpacityPageUnoptimized extends StatefulWidget {
+  const AfAnimatedOpacityPageUnoptimized({
     super.key,
   });
 
   @override
-  State<AfAnimatedColorPageUnoptimized> createState() => _AfAnimatedColorPageUnoptimizedState();
+  State<AfAnimatedOpacityPageUnoptimized> createState() => _AfAnimatedOpacityPageUnoptimizedState();
 }
 
-class _AfAnimatedColorPageUnoptimizedState extends State<AfAnimatedColorPageUnoptimized> with SingleTickerProviderStateMixin {
+class _AfAnimatedOpacityPageUnoptimizedState extends State<AfAnimatedOpacityPageUnoptimized> with SingleTickerProviderStateMixin {
 
   late AnimationController controller;
-  late Animation<Color?> colorAnimation;
+  late Animation<double> opacityAnimation;
   
-  Color? startColor;
-  Color? endColor;
-  
-  List<Color> get availableColors => [
-    Theme.of(context).colorScheme.primary,
-    Colors.red,
-    Colors.green,
-    Colors.purple,
-    Colors.orange,
-  ];
-  
-  int colorIndex = 0;
+  double currentOpacity = 1.0;
+  bool isVisible = true;
 
   @override
   void initState() {
@@ -37,22 +27,22 @@ class _AfAnimatedColorPageUnoptimizedState extends State<AfAnimatedColorPageUnop
       duration: const Duration(milliseconds: 500),
     );
     
-    _updateColorAnimation();
+    _updateOpacityAnimation();
 
     // Bad practice: Using setState in the animation listener
     // causes the entire widget tree to rebuild on every frame
     controller.addListener(() {
       setState(() {
         // This forces a rebuild of the entire widget tree
-        // instead of just updating the color
+        // instead of just updating the opacity
       });
     });
   }
 
-  void _updateColorAnimation() {
-    colorAnimation = ColorTween(
-      begin: startColor,
-      end: endColor,
+  void _updateOpacityAnimation() {
+    opacityAnimation = Tween<double>(
+      begin: currentOpacity,
+      end: isVisible ? 1.0 : 0.25,
     ).animate(
       CurvedAnimation(
         parent: controller,
@@ -61,14 +51,13 @@ class _AfAnimatedColorPageUnoptimizedState extends State<AfAnimatedColorPageUnop
     );
   }
 
-  void _changeColor() {
-    // Update the colors manually
-    startColor = endColor;
-    colorIndex = (colorIndex + 1) % availableColors.length;
-    endColor = availableColors[colorIndex];
+  void _toggleOpacity() {
+    // Update the target opacity manually
+    isVisible = !isVisible;
+    currentOpacity = opacityAnimation.value;
     
-    // Recreate the animation with new colors
-    _updateColorAnimation();
+    // Recreate the animation with new opacity values
+    _updateOpacityAnimation();
     
     // Reset and restart the animation
     controller.reset();
@@ -89,7 +78,7 @@ class _AfAnimatedColorPageUnoptimizedState extends State<AfAnimatedColorPageUnop
         child: AppBar(
           title: const Padding(
             padding: EdgeInsets.all(3.0),
-            child: Text(" Without AfAnimatedColor Demo "),
+            child: Text(" Without AfAnimatedOpacity Demo "),
           ).afShowRepaint(context),
           centerTitle: true,
           leading: IconButton(
@@ -107,7 +96,7 @@ class _AfAnimatedColorPageUnoptimizedState extends State<AfAnimatedColorPageUnop
               const Padding(
                 padding: EdgeInsets.all(4.0),
                 child: Text(
-                  " Without using AfAnimatedColor, poor animation practices are employed in this color animation. ",
+                  " Without using AfAnimatedOpacity, poor animation practices are employed in this opacity animation. ",
                   textAlign: TextAlign.center,
                 ),
               ).afShowRepaint(context),
@@ -115,61 +104,58 @@ class _AfAnimatedColorPageUnoptimizedState extends State<AfAnimatedColorPageUnop
               const SizedBox(height: 20).afShowRepaint(context),
 
               GestureDetector(
-                onTap: _changeColor,
-                child: Container(
-                  height: 200,
-                  width: 200,
-                  decoration: BoxDecoration(
-                    color: colorAnimation.value ?? Theme.of(context).colorScheme.primary,
-                    borderRadius: BorderRadius.circular(16),
-                    boxShadow: [
-                      BoxShadow(
-                        color: (colorAnimation.value ?? Theme.of(context).colorScheme.primary).withValues(alpha: 0.5),
-                        blurRadius: 10,
-                        offset: const Offset(0, 4),
+                onTap: _toggleOpacity,
+                child: Center(
+                  child: Opacity(
+                    opacity: opacityAnimation.value,
+                    child: Container(
+                      height: 200,
+                      width: 200,
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).colorScheme.primary,
+                        borderRadius: BorderRadius.circular(16),
                       ),
-                    ],
+                      child: Center(
+                        child: const Text(
+                          "Animated Content",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18,
+                          ),
+                          textAlign: TextAlign.center,
+                        ).afShowRepaint(context),
+                      ),
+                    ).afShowRepaint(context),
                   ),
-                  child: Center(
-                    child: Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: const Text(
-                        "Tap to change color",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18,
-                        ),
-                        textAlign: TextAlign.center,
-                      ).afShowRepaint(context),
-                    ),
-                  ),
-                ),
-              ).afShowRepaint(context),
+                ).afShowRepaint(context),
+              ),
 
               const SizedBox(height: 20).afShowRepaint(context),
 
               SizedBox(
                 width: MediaQuery.of(context).size.width * 0.6,
                 child: ElevatedButton(
-                  onPressed: _changeColor,
+                  onPressed: _toggleOpacity,
                   child: const Padding(
                     padding: EdgeInsets.all(3.0),
-                    child: Text(" Animate Color "),
+                    child: Text(" Animate Opacity "),
                   ).afShowRepaint(context),
                 ),
               ).afShowRepaint(context),
 
-              const SizedBox(height: 20).afShowRepaint(context),
+              const SizedBox(height: 10).afShowRepaint(context),
 
               const Padding(
                 padding: EdgeInsets.all(4.0),
                 child: Text(
                   " Problems with this implementation:\n"
                   " • Using setState in AnimationController listener causes unnecessary rebuilds\n"
-                  " • Manual creation and update of ColorTween animation\n"
+                  " • Manual creation and update of opacity Tween animation\n"
+                  " • Using Opacity widget instead of more efficient FadeTransition\n"
                   " • Rebuilding the entire widget tree on every animation frame\n" 
-                  " • Inefficient handling of color transitions\n"
+                  " • Inefficient handling of opacity transitions\n"
+                  " • Manual management of AnimationController lifecycle\n"
                   " • Difficult to reuse in other parts of the application",
                   textAlign: TextAlign.center,
                   style: TextStyle(fontSize: 11),

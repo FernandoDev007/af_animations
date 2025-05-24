@@ -12,10 +12,10 @@ class AfAnimatedColorPageOptimized extends StatefulWidget {
 
 class _AfAnimatedColorPageOptimizedState extends State<AfAnimatedColorPageOptimized> {
 
-  Color currentColor = Colors.blue;
+  Color? currentColor;
   
-  List<Color> availableColors = [
-    Colors.blue,
+  List<Color> get availableColors => [
+    Theme.of(context).colorScheme.primary,
     Colors.red,
     Colors.green,
     Colors.purple,
@@ -67,7 +67,7 @@ class _AfAnimatedColorPageOptimizedState extends State<AfAnimatedColorPageOptimi
                 onTap: _changeColor,
                 child: AfAnimatedColor(
                   id: "AfAnimatedColor Demo",
-                  color: () => currentColor,
+                  color: () => currentColor ?? Theme.of(context).colorScheme.primary,
                   builder: (context, color, child) {
                     return Container(
                       height: 200,

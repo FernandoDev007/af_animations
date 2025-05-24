@@ -15,6 +15,7 @@ part 'extensions/widgets_extension.dart';
 part 'layout_animations/animated_clip_rrect.dart';
 part 'property_animations/animated_color.dart';
 part 'property_animations/animated_composed.dart';
+part 'property_animations/animated_opacity.dart';
 part 'property_animations/animated_secondary_value.dart';
 part 'property_animations/animated_value.dart';
 part 'utility_widgets/builder.dart';

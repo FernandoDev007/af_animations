@@ -6,6 +6,8 @@ import 'package:af_animations_example/property_animations_examples/animated_colo
 import 'package:af_animations_example/property_animations_examples/animated_color/animated_color_page_unoptimized.dart';
 import 'package:af_animations_example/property_animations_examples/animated_composed/animated_composed_page_optimized.dart';
 import 'package:af_animations_example/property_animations_examples/animated_composed/animated_composed_page_unoptimized.dart';
+import 'package:af_animations_example/property_animations_examples/animated_opacity/animated_opacity_page_optimized.dart';
+import 'package:af_animations_example/property_animations_examples/animated_opacity/animated_opacity_page_unoptimized.dart';
 import 'package:af_animations_example/property_animations_examples/animated_secondary_value/animated_secondary_value_page_optimized.dart';
 import 'package:flutter/material.dart';
 
@@ -54,6 +56,8 @@ class _MyAppState extends State<MyApp> {
           "/animated_composed_page_unoptimized" : (context) => const AfAnimatedComposedPageUnoptimized(),
           "/animated_color_page_optimized" : (context) => const AfAnimatedColorPageOptimized(),
           "/animated_color_page_unoptimized" : (context) => const AfAnimatedColorPageUnoptimized(),
+          "/animated_opacity_page_optimized" : (context) => const AfAnimatedOpacityPageOptimized(),
+          "/animated_opacity_page_unoptimized" : (context) => const AfAnimatedOpacityPageUnoptimized(),
 
           /// Layout Animations
           "/layout_animations" : (context) => const LayoutAnimationsPage(),

@@ -143,9 +143,27 @@ class _PropertyAnimationsPageState extends State<PropertyAnimationsPage> {
         
                 SizedBox(
                   width: MediaQuery.of(context).size.width * 0.6,
-                  child: const ElevatedButton(
-                    onPressed: null, ///In progress
-                    child: Text("AfAnimatedOpacity", textAlign: TextAlign.center)
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => SelectExampleTypePage(
+                            title: "AfAnimatedOpacity Demo",
+                            description: "Animating opacity value by interpolating to the new opacity, "
+                              "providing optimal performance using FadeTransition internally",
+                            titleUnoptimizeVersion: "Without using AfAnimatedOpacity",
+                            onTapUnoptimizeVersion: () {
+                              Navigator.of(context).pushNamed("/animated_opacity_page_unoptimized");
+                            },
+                            titleOptimizeVersion: "Using AfAnimatedOpacity",
+                            onTapOptimizedVersion: () {
+                              Navigator.of(context).pushNamed("/animated_opacity_page_optimized");
+                            },
+                          )
+                        )
+                      );
+                    },
+                    child: const Text("AfAnimatedOpacity", textAlign: TextAlign.center)
                   ),
                 ),
         

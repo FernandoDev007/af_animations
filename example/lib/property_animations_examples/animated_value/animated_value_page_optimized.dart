@@ -63,7 +63,7 @@ class _AfAnimatedValuePageOptimizedState extends State<AfAnimatedValuePageOptimi
                     child: Container(
                       height: lerpDouble(170, 300, value),
                       width: lerpDouble(230, min(MediaQuery.of(context).size.width, 270), value),
-                      color: Color.lerp(Colors.red, Colors.blue[700]!, value),
+                      color: Color.lerp(Theme.of(context).colorScheme.primary, Colors.brown, value),
                       child: Center(
                         child: Padding(
                           padding: const EdgeInsets.all(10.0),
@@ -77,7 +77,7 @@ class _AfAnimatedValuePageOptimizedState extends State<AfAnimatedValuePageOptimi
                                   child: Text(
                                     "Example",
                                     style: TextStyle(
-                                      color: Colors.black,
+                                      color: Colors.white,
                                       fontSize: 14 + lerpDouble(0, 10, value)!
                                     ),
                                     textAlign: TextAlign.center,
@@ -97,7 +97,7 @@ class _AfAnimatedValuePageOptimizedState extends State<AfAnimatedValuePageOptimi
                   padding: EdgeInsets.all(8.0),
                   child: Text(
                     "Example content of the widget",
-                    style: TextStyle(color: Colors.black),
+                    style: TextStyle(color: Colors.white),
                     textAlign: TextAlign.center,
                   ),
                 ).afShowRepaint(context),

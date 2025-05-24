@@ -111,7 +111,7 @@ class _AfAnimatedSecondaryValuePageUnoptimizedState extends State<AfAnimatedSeco
                       170,
                       min(MediaQuery.of(context).size.width, 270),
                       animation.value),
-                  color: Colors.red,
+                  color: Theme.of(context).colorScheme.primary,
                   child: Center(
                     child: Padding(
                       padding: const EdgeInsets.all(10.0),
@@ -121,7 +121,7 @@ class _AfAnimatedSecondaryValuePageUnoptimizedState extends State<AfAnimatedSeco
                           scale: animation1.value + 1,
                           child: const Text(
                             "Example content of the widget",
-                            style: TextStyle(color: Colors.black),
+                            style: TextStyle(color: Colors.grey),
                             textAlign: TextAlign.center,
                           ),
                         ),

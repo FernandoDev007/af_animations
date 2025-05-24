@@ -185,7 +185,6 @@ class __AfAnimatedValueState extends AnimatedWidgetBaseState<_AfAnimatedValue> {
 
   @override
   Widget build(BuildContext context) {
-    print("${animation.value}");
     return widget.builder
         .call(
           context,

@@ -226,7 +226,7 @@ class _AfAnimatedComposedPageUnoptimizedState extends State<AfAnimatedComposedPa
                           height: 200,
                           width: 200,
                           decoration: BoxDecoration(
-                            color: Colors.red,
+                            color: Theme.of(context).colorScheme.primary,
                             borderRadius: BorderRadius.circular(20),
                             boxShadow: const [
                               BoxShadow(

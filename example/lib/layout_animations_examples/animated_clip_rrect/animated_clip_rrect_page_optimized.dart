@@ -59,7 +59,7 @@ class _AfAnimatedClipRRectPageOptimizedState extends State<AfAnimatedClipRRectPa
                   child: Container(
                     height: 170,
                     width: 170,
-                    color: Colors.red,
+                    color: Theme.of(context).colorScheme.primary,
                     child: Center(
                       child: Padding(
                         padding: const EdgeInsets.all(10.0),
