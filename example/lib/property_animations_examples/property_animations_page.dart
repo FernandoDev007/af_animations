@@ -227,9 +227,27 @@ class _PropertyAnimationsPageState extends State<PropertyAnimationsPage> {
         
                 SizedBox(
                   width: MediaQuery.of(context).size.width * 0.6,
-                  child: const ElevatedButton(
-                    onPressed: null, ///In progress
-                    child: Text("AfAnimatedRotation", textAlign: TextAlign.center)
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => SelectExampleTypePage(
+                            title: "AfAnimatedRotation Demo",
+                            description: "Animating rotation angles by interpolating to the new angle value, "
+                              "providing smooth rotation transitions using Transform.rotate without affecting layout",
+                            titleUnoptimizeVersion: "Without using AfAnimatedRotation",
+                            onTapUnoptimizeVersion: () {
+                              Navigator.of(context).pushNamed("/animated_rotation_page_unoptimized");
+                            },
+                            titleOptimizeVersion: "Using AfAnimatedRotation",
+                            onTapOptimizedVersion: () {
+                              Navigator.of(context).pushNamed("/animated_rotation_page_optimized");
+                            },
+                          )
+                        )
+                      );
+                    },
+                    child: const Text("AfAnimatedRotation", textAlign: TextAlign.center)
                   ),
                 ),
         
