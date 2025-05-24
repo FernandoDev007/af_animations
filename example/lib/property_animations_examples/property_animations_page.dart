@@ -199,19 +199,27 @@ class _PropertyAnimationsPageState extends State<PropertyAnimationsPage> {
         
                 SizedBox(
                   width: MediaQuery.of(context).size.width * 0.6,
-                  child: const ElevatedButton(
-                    onPressed: null, ///In progress
-                    child: Text("AfAnimatedAlignment", textAlign: TextAlign.center)
-                  ),
-                ),
-        
-                const SizedBox(height: 15),
-        
-                SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.6,
-                  child: const ElevatedButton(
-                    onPressed: null, ///In progress
-                    child: Text("AfAnimatedOffset", textAlign: TextAlign.center)
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => SelectExampleTypePage(
+                            title: "AfAnimatedOffset Demo",
+                            description: "Animating position values by interpolating to the new offset, "
+                              "providing smooth position transitions using Transform.translate without affecting layout",
+                            titleUnoptimizeVersion: "Without using AfAnimatedOffset",
+                            onTapUnoptimizeVersion: () {
+                              Navigator.of(context).pushNamed("/animated_offset_page_unoptimized");
+                            },
+                            titleOptimizeVersion: "Using AfAnimatedOffset",
+                            onTapOptimizedVersion: () {
+                              Navigator.of(context).pushNamed("/animated_offset_page_optimized");
+                            },
+                          )
+                        )
+                      );
+                    },
+                    child: const Text("AfAnimatedOffset", textAlign: TextAlign.center)
                   ),
                 ),
         

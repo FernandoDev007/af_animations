@@ -6,6 +6,8 @@ import 'package:af_animations_example/property_animations_examples/animated_colo
 import 'package:af_animations_example/property_animations_examples/animated_color/animated_color_page_unoptimized.dart';
 import 'package:af_animations_example/property_animations_examples/animated_composed/animated_composed_page_optimized.dart';
 import 'package:af_animations_example/property_animations_examples/animated_composed/animated_composed_page_unoptimized.dart';
+import 'package:af_animations_example/property_animations_examples/animated_offset/animated_offset_page_optimized.dart';
+import 'package:af_animations_example/property_animations_examples/animated_offset/animated_offset_page_unoptimized.dart';
 import 'package:af_animations_example/property_animations_examples/animated_opacity/animated_opacity_page_optimized.dart';
 import 'package:af_animations_example/property_animations_examples/animated_opacity/animated_opacity_page_unoptimized.dart';
 import 'package:af_animations_example/property_animations_examples/animated_secondary_value/animated_secondary_value_page_optimized.dart';
@@ -64,6 +66,8 @@ class _MyAppState extends State<MyApp> {
           "/animated_opacity_page_unoptimized" : (context) => const AfAnimatedOpacityPageUnoptimized(),
           "/animated_size_page_optimized" : (context) => const AfAnimatedSizePageOptimized(),
           "/animated_size_page_unoptimized" : (context) => const AfAnimatedSizePageUnoptimized(),
+          "/animated_offset_page_optimized" : (context) => const AfAnimatedOffsetPageOptimized(),
+          "/animated_offset_page_unoptimized" : (context) => const AfAnimatedOffsetPageUnoptimized(),
 
           /// Layout Animations
           "/layout_animations" : (context) => const LayoutAnimationsPage(),
