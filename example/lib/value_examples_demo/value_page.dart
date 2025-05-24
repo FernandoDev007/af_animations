@@ -114,9 +114,27 @@ class _ValuePageState extends State<ValuePage> {
 
               SizedBox(
                 width: MediaQuery.of(context).size.width * 0.6,
-                child: const ElevatedButton(
-                  onPressed: null, ///In progress
-                  child: Text("AfAnimatedColor", textAlign: TextAlign.center)
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => SelectExampleTypePage(
+                          title: "AfAnimatedColor Demo",
+                          description: "Animating a color value by interpolating to the new color, "
+                            "perfect for smooth transitions of background colors, text colors, or borders",
+                          titleUnoptimizeVersion: "Without using AfAnimatedColor",
+                          onTapUnoptimizeVersion: () {
+                            Navigator.of(context).pushNamed("/animated_color_page_unoptimized");
+                          },
+                          titleOptimizeVersion: "Using AfAnimatedColor",
+                          onTapOptimizedVersion: () {
+                            Navigator.of(context).pushNamed("/animated_color_page_optimized");
+                          },
+                        )
+                      )
+                    );
+                  },
+                  child: const Text("AfAnimatedColor", textAlign: TextAlign.center)
                 ),
               ),
 

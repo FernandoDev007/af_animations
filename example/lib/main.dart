@@ -2,6 +2,8 @@ import 'dart:ui';
 
 import 'package:af_animations/af_animations.dart';
 import 'package:af_animations_example/home_page.dart';
+import 'package:af_animations_example/value_examples_demo/animated_color_page_optimized.dart';
+import 'package:af_animations_example/value_examples_demo/animated_color_page_unoptimized.dart';
 import 'package:af_animations_example/value_examples_demo/animated_composed_page_optimized.dart';
 import 'package:af_animations_example/value_examples_demo/animated_composed_page_unoptimized.dart';
 import 'package:af_animations_example/value_examples_demo/animated_secondary_value_page_optimized.dart';
@@ -50,6 +52,8 @@ class _MyAppState extends State<MyApp> {
           "/animated_secondary_value_page_unoptimized" : (context) => const AfAnimatedSecondaryValuePageUnoptimized(),
           "/animated_composed_page_optimized" : (context) => const AfAnimatedComposedPageOptimized(),
           "/animated_composed_page_unoptimized" : (context) => const AfAnimatedComposedPageUnoptimized(),
+          "/animated_color_page_optimized" : (context) => const AfAnimatedColorPageOptimized(),
+          "/animated_color_page_unoptimized" : (context) => const AfAnimatedColorPageUnoptimized(),
 
           /// Implicitly Animations
           "/implicitly_demo" : (context) => const ImplicitlyPage(),
