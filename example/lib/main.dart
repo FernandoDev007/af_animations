@@ -2,30 +2,34 @@ import 'dart:ui';
 
 import 'package:af_animations/af_animations.dart';
 import 'package:af_animations_example/home_page.dart';
-import 'package:af_animations_example/implicitly_examples_demo/animated_clip_rrect_page_optimized.dart';
-import 'package:af_animations_example/implicitly_examples_demo/animated_clip_rrect_page_unoptimized.dart';
-import 'package:af_animations_example/implicitly_examples_demo/implicitly_page.dart';
-import 'package:af_animations_example/other_widgets_examples_demo/af_builder_page_optimized.dart';
-import 'package:af_animations_example/other_widgets_examples_demo/af_builder_page_unoptimized.dart';
-import 'package:af_animations_example/other_widgets_examples_demo/other_widgets_page.dart';
-import 'package:af_animations_example/value_examples_demo/animated_value_page_optimized.dart';
-import 'package:af_animations_example/value_examples_demo/animated_value_page_unoptimized.dart';
-import 'package:af_animations_example/value_examples_demo/value_page.dart';
+import 'package:af_animations_example/property_animations_examples/animated_box_decoration/animated_box_decoration_page_optimized.dart';
+import 'package:af_animations_example/property_animations_examples/animated_box_decoration/animated_box_decoration_page_unoptimized.dart';
+import 'package:af_animations_example/property_animations_examples/animated_color/animated_color_page_optimized.dart';
+import 'package:af_animations_example/property_animations_examples/animated_color/animated_color_page_unoptimized.dart';
+import 'package:af_animations_example/property_animations_examples/animated_composed/animated_composed_page_optimized.dart';
+import 'package:af_animations_example/property_animations_examples/animated_composed/animated_composed_page_unoptimized.dart';
+import 'package:af_animations_example/property_animations_examples/animated_offset/animated_offset_page_optimized.dart';
+import 'package:af_animations_example/property_animations_examples/animated_offset/animated_offset_page_unoptimized.dart';
+import 'package:af_animations_example/property_animations_examples/animated_opacity/animated_opacity_page_optimized.dart';
+import 'package:af_animations_example/property_animations_examples/animated_opacity/animated_opacity_page_unoptimized.dart';
+import 'package:af_animations_example/property_animations_examples/animated_rotation/animated_rotation_page_optimized.dart';
+import 'package:af_animations_example/property_animations_examples/animated_rotation/animated_rotation_page_unoptimized.dart';
+import 'package:af_animations_example/property_animations_examples/animated_scale/animated_scale_page_optimized.dart';
+import 'package:af_animations_example/property_animations_examples/animated_scale/animated_scale_page_unoptimized.dart';
+import 'package:af_animations_example/property_animations_examples/animated_secondary_value/animated_secondary_value_page_optimized.dart';
+import 'package:af_animations_example/property_animations_examples/animated_size/animated_size_page_optimized.dart';
+import 'package:af_animations_example/property_animations_examples/animated_size/animated_size_page_unoptimized.dart';
+import 'package:af_animations_example/utility_widgets_examples/builder/builder_page_optimized.dart' as builder_pages;
+import 'package:af_animations_example/utility_widgets_examples/builder/builder_page_unoptimized.dart' as builder_pages;
 import 'package:flutter/material.dart';
-
 
 void main() => runApp(const MyApp());
 
-
 class MyApp extends StatefulWidget {
-
-  const MyApp({
-    super.key
-  });
+  const MyApp({super.key});
 
   @override
   State<MyApp> createState() => _MyAppState();
-
 }
 
 class _MyAppState extends State<MyApp> {
@@ -54,20 +58,47 @@ class _MyAppState extends State<MyApp> {
         routes: {
           "/home" : (context) => const HomePage(),
 
-          /// Value Animations
-          "/value_demo" : (context) => const ValuePage(),
+          /// Property Animations
+          "/property_animations" : (context) => const PropertyAnimationsPage(),
           "/animated_value_page_optimized" : (context) => const AfAnimatedValuePageOptimized(),
           "/animated_value_page_unoptimized" : (context) => const AfAnimatedValuePageUnoptimized(),
+          "/animated_secondary_value_page_optimized" : (context) => const AfAnimatedSecondaryValuePageOptimized(),
+          "/animated_secondary_value_page_unoptimized" : (context) => const AfAnimatedSecondaryValuePageUnoptimized(),
+          "/animated_composed_page_optimized" : (context) => const AfAnimatedComposedPageOptimized(),
+          "/animated_composed_page_unoptimized" : (context) => const AfAnimatedComposedPageUnoptimized(),
+          "/animated_color_page_optimized" : (context) => const AfAnimatedColorPageOptimized(),
+          "/animated_color_page_unoptimized" : (context) => const AfAnimatedColorPageUnoptimized(),
+          "/animated_opacity_page_optimized" : (context) => const AfAnimatedOpacityPageOptimized(),
+          "/animated_opacity_page_unoptimized" : (context) => const AfAnimatedOpacityPageUnoptimized(),
+          "/animated_size_page_optimized" : (context) => const AfAnimatedSizePageOptimized(),
+          "/animated_size_page_unoptimized" : (context) => const AfAnimatedSizePageUnoptimized(),
+          "/animated_offset_page_optimized" : (context) => const AfAnimatedOffsetPageOptimized(),
+          "/animated_offset_page_unoptimized" : (context) => const AfAnimatedOffsetPageUnoptimized(),
+          "/animated_rotation_page_optimized" : (context) => const AfAnimatedRotationPageOptimized(),
+          "/animated_rotation_page_unoptimized" : (context) => const AfAnimatedRotationPageUnoptimized(),
+          "/animated_scale_page_optimized" : (context) => const AfAnimatedScalePageOptimized(),
+          "/animated_scale_page_unoptimized" : (context) => const AfAnimatedScalePageUnoptimized(),
+          "/animated_box_decoration_page_optimized" : (context) => const AfAnimatedBoxDecorationPageOptimized(),
+          "/animated_box_decoration_page_unoptimized" : (context) => const AfAnimatedBoxDecorationPageUnoptimized(),
 
-          /// Implicitly Animations
-          "/implicitly_demo" : (context) => const ImplicitlyPage(),
+          /// Layout Animations
+          "/layout_animations" : (context) => const LayoutAnimationsPage(),
           "/animated_clip_rrect_page_optimized" : (context) => const AfAnimatedClipRRectPageOptimized(),
           "/animated_clip_rrect_page_unoptimized" : (context) => const AfAnimatedClipRRectPageUnoptimized(),
 
-          /// Other widgets
-          "/other_widgets_demo" : (context) => const OtherWidgetsPage(),
-          "/builder_page_optimized" : (context) => const AfBuilderPageOptimized(),
-          "/builder_page_unoptimized" : (context) => const AfBuilderPageUnoptimized(),
+          /// Utility Widgets
+          "/utility_widgets" : (context) => const UtilityWidgetsPage(),
+          "/builder_page_optimized" : (context) => const builder_pages.AfBuilderPageOptimized(),
+          "/builder_page_unoptimized" : (context) => const builder_pages.AfBuilderPageUnoptimized(),
+
+          /// Effect Animations
+          "/effect_animations" : (context) => const EffectAnimationsPage(),
+
+          /// Transition Animations
+          "/transition_animations" : (context) => const TransitionAnimationsPage(),
+
+          /// Sequence Animations  
+          "/sequence_animations" : (context) => const SequenceAnimationsPage(),
         },
         scrollBehavior: const ScrollBehavior().copyWith(
           dragDevices: PointerDeviceKind.values.toSet(),
@@ -76,6 +107,4 @@ class _MyAppState extends State<MyApp> {
       ),
     );
   }
-
 }
-

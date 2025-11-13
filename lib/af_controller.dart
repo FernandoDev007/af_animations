@@ -1,35 +1,34 @@
 part of 'af_animations.dart';
 
-
 /// {@template AfController}
 /// The alternative to AfAnimations without context, for those suffering from "Contextphobia"...
 /// The AfController is used to set the duration, curve, and other animations
 /// for a specified group of AfWidgets.
-/// 
+///
 /// AfAnimations is easier and simpler to use in the application,
 /// but AfController is a context-free alternative.
 /// I assure you that each one has different use cases,
 /// and it will be up to your preference to choose between them.
 /// {@endtemplate}
-/// 
+///
 /// If you find any errors, please let me know by starting a new discussion or PR :)
 /// https://github.com/FernandoDev007/af_animations
-/// 
+///
 /// {@template AfController_examples}
 /// ### Examples:
 /// ```dart
 /// class HomePage extends StatefulWidget {
 ///   const HomePage({super.key});
-/// 
+///
 ///   @override
 ///   State<HomePage> createState() => _HomePageState();
 /// }
-/// 
+///
 /// class _HomePageState extends State<HomePage> {
-/// 
+///
 ///   AfController controller = AfController();
 ///   int valueToAnimated = 0;
-/// 
+///
 ///   @override
 ///   Widget build(BuildContext context) {
 ///     /// You can also add it to a specific screen to apply it only screen
@@ -50,41 +49,40 @@ part of 'af_animations.dart';
 ///     );
 ///   }
 /// }
-/// 
+///
 /// ```
 /// {@endtemplate}
-/// 
+///
 /// {@template AfController_principalGetters}
 /// Afterwards, in your project, you will be able to retrieve the specified values as follows:
 /// ```dart
 /// /// The controller is already defined previously
 /// AfController controller = AfController();
-/// 
+///
 /// Duration globalDuration = controller.getDuration();
 /// Curve globalCurve = controller.getCurve();
 /// bool showRepaint = controller.isShowRepaint();
 /// ```
 /// {@endtemplate}
-/// 
+///
 /// {@template AfController_allGetters}
 /// You can also use these others:
 /// ```dart
 /// /// The controller is already defined previously
 /// AfController controller = AfController();
-/// 
+///
 /// /// If for any reason you want to use it.
 /// controller.callOnEnd();
 /// /// Update all AfWidgets without a specified ID.
 /// controller.update();
 /// /// You specify the IDs to update, and it will update the widget entirely in an optimal way.
-/// controller.update(ids: ["updateIcon", "updateValue", "Anothers"]);
+/// controller.update(ids: ["updateIcon", "updateValue", "Another"]);
 /// ```
 /// {@endtemplate}
-/// 
+///
 /// These functions will work in these AfWidgets
 /// {@macro AfWidgets_all}
 class AfController {
-
   /// {@macro AfController}
   /// {@macro AfController_examples}
   /// {@macro AfController_principalGetters}
@@ -98,14 +96,14 @@ class AfController {
 
   /// {@template AfController_duration}
   /// The global duration over which the AfWidgets will be animated.
-  /// 
+  ///
   /// {@macro AfController_principalGetters}
   /// {@endtemplate}
   final Duration? duration;
 
   /// {@template AfController_curve}
   /// The global curve over which the AfWidgets will be animated.
-  /// 
+  ///
   /// {@macro AfController_principalGetters}
   /// {@endtemplate}
   final Curve? curve;
@@ -123,16 +121,24 @@ class AfController {
   /// (You can use it in your current project to perform performance tests),
   /// all widget rebuilds will be visually displayed, making it easier to identify areas
   /// where performance can be improved, by avoiding unnecessary rebuilds.
-  /// 
+  ///
   /// A border of a specific color will be displayed, which will change when a widget rebuild occurs.
-  /// 
+  ///
   /// {@macro AfController_principalGetters}
   /// {@endtemplate}
   final bool showRepaint;
 
-
-  /// The list where all _AfWidgetState are stored to be updated later with AfAnimations.update.
-  final List<_AfWidgetState> _afWidgetStates = <_AfWidgetState>[];
+  /// Special ID for widgets without a specific ID
+  static const String _defaultIdKey = "default";
+  
+  /// The HashMap where all _AfWidgetState are stored grouped by ID
+  /// to be updated later with controller.update.
+  /// Using HashMap optimizes lookup operations to O(1) complexity.
+  /// 
+  /// DoubleLinkedQueue is used for each ID group for optimal performance
+  /// with add and remove operations during animation updates.
+  final HashMap<String, DoubleLinkedQueue<_AfWidgetState>> _afWidgetStatesMap = 
+      HashMap<String, DoubleLinkedQueue<_AfWidgetState>>();
 
 
   /// {@macro AfController_principalGetters}
@@ -157,16 +163,31 @@ class AfController {
 
   /// {@macro AfController_allGetters}
   void update({List<String> ids = const <String>[""]}) {
-    for (_AfWidgetState afWidget in _afWidgetStates) {
-      if (ids.any((id) => afWidget.id == id)) {
-        if (afWidget.mounted()) {
-          afWidget.update();
+    // If no IDs are specified or an empty ID is used, update widgets without a specific ID
+    if (ids.isEmpty || (ids.length == 1 && ids[0].isEmpty)) {
+      final emptyIdWidgets = _afWidgetStatesMap[_defaultIdKey];
+      if (emptyIdWidgets != null) {
+        for (_AfWidgetState afWidget in emptyIdWidgets) {
+          if (afWidget.mounted()) {
+            afWidget.update();
+          }
+        }
+      }
+      return;
+    }
+
+    // Update widgets with specific IDs
+    for (String id in ids) {
+      final widgetsWithId = _afWidgetStatesMap[id];
+      if (widgetsWithId != null) {
+        for (_AfWidgetState afWidget in widgetsWithId) {
+          if (afWidget.mounted()) {
+            afWidget.update();
+          }
         }
       }
     }
   }
-
-
 
   /// {@template AfController_subscription}
   /// Subscribe a _AfWidgetState to listen for a possible [controller.update]
@@ -174,7 +195,13 @@ class AfController {
   /// {@endtemplate}
   void _subscription(_AfWidgetState state) {
     _unsubscribeOnDisposedStates();
-    _afWidgetStates.add(state);
+    
+    final String idKey = state.id.isEmpty ? _defaultIdKey : state.id;
+    
+    // Initialize the queue for this ID if it doesn't exist
+    _afWidgetStatesMap[idKey] ??= DoubleLinkedQueue<_AfWidgetState>();
+    // Add the widget to the corresponding queue
+    _afWidgetStatesMap[idKey]!.add(state);
   }
 
   /// {@template AfController_unsubscribe}
@@ -182,17 +209,31 @@ class AfController {
   /// for [controller.update], thus freeing up some resources
   /// {@endtemplate}
   void _unsubscribe(_AfWidgetState state) {
-    _afWidgetStates.removeWhere(
-      (afWidget) => afWidget.uniqueId == state.uniqueId
-    );
+    final String idKey = state.id.isEmpty ? _defaultIdKey : state.id;
+    
+    // Get the queue for this ID
+    final DoubleLinkedQueue<_AfWidgetState>? widgetsWithId = _afWidgetStatesMap[idKey];
+    if (widgetsWithId != null) {
+      // Remove the specific widget from the queue
+      widgetsWithId.removeWhere((afWidget) => afWidget.uniqueId == state.uniqueId);
+      
+      // If the queue is empty, remove the entry from the map
+      if (widgetsWithId.isEmpty) {
+        _afWidgetStatesMap.remove(idKey);
+      }
+    }
   }
 
   /// Unsubscribe all _AfWidgetState for AfWidgets that are no longer displayed
   /// on the current screen. If they become visible again, they will be subscribed again.
   void _unsubscribeOnDisposedStates() {
-    _afWidgetStates.removeWhere(
-      (afWidget) => !afWidget.mounted(),
-    );
+    // Iterate over all entries in the map
+    _afWidgetStatesMap.forEach((id, widgetsQueue) {
+      widgetsQueue.removeWhere((afWidget) => !afWidget.mounted());
+    });
+    
+    // Remove entries with empty queues
+    _afWidgetStatesMap.removeWhere((_, widgetsQueue) => widgetsQueue.isEmpty);
   }
 
 }
